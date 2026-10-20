@@ -86,7 +86,7 @@
     }
     try {
       sessionStorage.setItem('studyhub-session', JSON.stringify({ role }));
-      location.assign(role === 'admin' ? 'dsa.html' : 'dashboard.html');
+      location.assign('dashboard.html');
     } catch { status.textContent = 'Browser session storage is unavailable. Enable storage to sign in.'; }
   });
   document.getElementById('googleButton').addEventListener('click', () => {

@@ -1,6 +1,6 @@
 (() => {
   const container = document.querySelector('.page-body');
-  if (!container || document.querySelector('.site-footer')) return;
+  if (!container?.classList.contains('landing-body') || document.querySelector('.site-footer')) return;
   document.querySelector('.landing-footer')?.remove();
   const footer = document.createElement('footer');
   footer.className = 'site-footer';
@@ -8,5 +8,17 @@
   const garden = flowers.map(([x,y,r,color]) => `<path d="M${x} ${y}Q${x-15} 180 ${x+8} 204" stroke="#438774" stroke-width="2.2" fill="none"/><path d="M${x+2} ${y+40}q-26-19-21-3t21 3M${x+3} ${y+58}q28-27 21-6t-21 6" fill="#5d9b7d"/><g transform="translate(${x} ${y})">${Array.from({length:5},(_,i)=>`<ellipse cy="-${r*.63}" rx="${r*.32}" ry="${r*.63}" fill="${color}" transform="rotate(${i*72})"/>`).join('')}<circle r="${r*.22}" fill="#355164"/></g>`).join('');
   footer.innerHTML = `<div class="footer-brand-area"><a class="footer-brand" href="dashboard.html" aria-label="StudyHub home"><img src="assets/studyhub-mark.svg" width="34" height="34" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><svg class="footer-garden" viewBox="0 0 220 205" fill="none" aria-hidden="true">${garden}<path d="M0 204q40-35 70 0m-20 0q40-43 80 0m-10 0q40-34 90 0" stroke="#438774" stroke-width="2"/></svg></div>
     <div class="footer-content"><nav class="footer-columns" aria-label="Liên kết cuối trang"><div><h3>StudyHub</h3><a href="dashboard.html">Trang chủ</a><a href="dashboard.html#aboutTitle">About us</a><a href="feedback.html">Góp ý</a></div><div><h3>Khám phá</h3><a href="universities.html">Trường đại học</a><a href="library.html">Kho tài liệu</a><a href="space.html">Chia sẻ lộ trình</a></div><div><h3>Học cùng bạn</h3><a href="planner.html">AI Planner</a><a href="chatbot.html">AI Chatbot</a><a href="profile.html">Hồ sơ cá nhân</a></div></nav><div class="footer-bottom"><p>© ${new Date().getFullYear()} StudyHub. All rights reserved.</p></div></div>`;
-  container.append(footer);
+  const glassStage = document.createElement('div');
+  glassStage.className = 'footer-glass-stage';
+  glassStage.append(footer);
+  if (container.classList.contains('landing-body')) {
+    container.append(glassStage);
+  } else {
+    // Keep the footer outside page padding, max-widths and dynamic render targets.
+    const scrollArea = document.createElement('div');
+    scrollArea.className = 'page-scroll-area';
+    if (container.classList.contains('profile-page')) scrollArea.classList.add('hide-scrollbar');
+    container.before(scrollArea);
+    scrollArea.append(container, glassStage);
+  }
 })();

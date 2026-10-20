@@ -110,3 +110,10 @@
 .home-introduction-page .has-header-navigation > .topbar { transition: background-color .25s ease, box-shadow .25s ease; }
 .home-introduction-page .has-header-navigation.header-scrolled > .topbar { background: #fff; box-shadow: 0 1px 0 #dce5ef, 0 4px 16px #18355208; }
 @media(prefers-reduced-motion:reduce){.home-introduction-page .has-header-navigation > .topbar{transition:none}}
+
+.header-premium-button { display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 18px;border:1px solid #e8bd56;border-radius:24px;background:linear-gradient(120deg,#fff0b8,#f4ca65);color:#77500d;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px #bd8b1920;transition:transform .2s ease,box-shadow .2s ease;white-space:nowrap; }
+.header-premium-button i { color:#a57213;font-size:15px; }
+.header-premium-button:hover { transform:translateY(-2px);box-shadow:0 7px 18px #bd8b1930; }
+.header-premium-button:focus-visible { outline:3px solid #dba62e;outline-offset:3px; }
+@media(max-width:600px){.header-premium-button{min-height:36px;padding:0 13px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.header-premium-button{transition:none}.header-premium-button:hover{transform:none}}

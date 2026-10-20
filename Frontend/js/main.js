@@ -17,6 +17,18 @@ function initHeaderSession() {
   });
 }
 
+function initPremiumLink() {
+  document.querySelectorAll('.topbar-actions').forEach(actions => {
+    if (actions.querySelector('.header-premium-button')) return;
+    const link = document.createElement('a');
+    link.className = 'header-premium-button';
+    link.href = 'premium.html';
+    link.innerHTML = '<i class="fa-solid fa-crown" aria-hidden="true"></i><span>Premium</span>';
+    if (location.pathname.endsWith('/premium.html')) link.setAttribute('aria-current', 'page');
+    actions.prepend(link);
+  });
+}
+
 function setActiveNav() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const activePage = document.body.dataset.activeNav || currentPage;
@@ -240,6 +252,7 @@ function initLiquidNavigation() {
 // ── DOMContentLoaded bootstrap ────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderSession();
+  initPremiumLink();
   setActiveNav();
   initPasswordToggles();
   initSidebarToggle();
