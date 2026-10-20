@@ -15,12 +15,18 @@
   }
   function renderSubjects() {
     const query = normalize($('subjectSearch').value);
-    $('availableSubjects').innerHTML = subjects.map((subject, index) => normalize(subject.name).includes(query) ? subjectCard(subject, index, false) : '').join('');
+    $('availableSubjects').innerHTML = subjects.map((subject, index) => !selected.has(index) && normalize(subject.name).includes(query) ? subjectCard(subject, index, false) : '').join('');
     $('subjectEmpty').hidden = $('availableSubjects').children.length > 0;
     $('selectedSubjects').innerHTML = [...selected].map(index => subjectCard(subjects[index], index, true)).join('') || '<p class="panel-description">Chưa thêm môn học. Chọn môn học ở danh sách trên.</p>';
     $('selectedCount').textContent = selected.size;
     $('clearSubjects').disabled = selected.size === 0;
   }
+  $('toggleSelectedSubjects').addEventListener('click', () => {
+    const button = $('toggleSelectedSubjects');
+    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(expanded));
+    $('selectedSubjects').hidden = !expanded;
+  });
   $('subjectSearch').addEventListener('input', renderSubjects);
   $('availableSubjects').addEventListener('click', event => { const button = event.target.closest('[data-add]'); if (button) { selected.add(Number(button.dataset.add)); renderSubjects(); } });
   $('selectedSubjects').addEventListener('click', event => { const button = event.target.closest('[data-remove]'); if (button) { selected.delete(Number(button.dataset.remove)); renderSubjects(); } });
@@ -32,17 +38,6 @@
     if (index < 0) { showToast('Không có môn học phù hợp để thêm.', 'info'); return; }
     selected.add(index); renderSubjects();
   });
-  const picker = $('documentPicker');
-  $('addDocument').addEventListener('click', () => picker.click());
-  picker.addEventListener('change', () => {
-    const file = picker.files[0]; if (!file) return;
-    if (!/\.(pdf|docx?|pptx?|xlsx?|txt)$/i.test(file.name)) { showToast('Vui lòng chọn PDF, Word, PowerPoint, Excel hoặc TXT.', 'error'); picker.value = ''; return; }
-    $('documentName').textContent = file.name;
-    $('documentMeta').textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB · Đính kèm cục bộ, chưa đọc nội dung`;
-    $('removeDocument').disabled = false;
-    showToast('Đã đính kèm cục bộ. Chưa gửi tài liệu đến dịch vụ AI.', 'info');
-  });
-  $('removeDocument').addEventListener('click', () => { picker.value = ''; $('documentName').textContent = 'Chưa chọn tài liệu'; $('documentMeta').textContent = 'Thêm tài liệu để chuẩn bị phiên học'; $('removeDocument').disabled = true; });
   const replies = [
     [/so sanh|lien ket/, 'Mảng lưu các phần tử liên tiếp trong bộ nhớ và truy cập theo chỉ số trong O(1). Danh sách liên kết lưu các node nối bằng con trỏ; truy cập theo vị trí thường cần O(n). Chèn hoặc xóa node trong O(1) khi đã có con trỏ phù hợp.'],
     [/array|mang/, 'Mảng (Array) lưu các phần tử cùng kiểu dữ liệu liên tiếp trong bộ nhớ. Chỉ số thường bắt đầu từ 0. Ví dụ C++: int arr[3] = {10, 20, 30}; arr[1] có giá trị 20. Truy cập theo chỉ số có độ phức tạp O(1).'],
@@ -62,9 +57,8 @@
   function sendMessage() {
     const input = $('chatInput'), text = input.value.trim(); if (!text) return;
     $('welcomeCard').hidden = true; input.value = ''; addMessage(text, true);
-    const source = document.querySelector('input[name="knowledgeSource"]:checked').value;
     const reply = replies.find(([pattern]) => pattern.test(normalize(text)));
-    addMessage(source === 'planner' ? 'Chế độ lộ trình học chưa kết nối file từ AI Planner. Hãy chuyển sang tài liệu gốc để thử các câu hỏi kiến thức mẫu.' : reply ? reply[1] : 'Phiên bản này chưa kết nối dịch vụ AI nên chưa thể phân tích câu hỏi hoặc tài liệu của bạn. Bạn có thể thử các câu hỏi mẫu về Array, Pointer, Stack và độ phức tạp.', false);
+    addMessage(reply ? reply[1] : 'Phiên bản này chưa kết nối dịch vụ AI nên chưa thể phân tích câu hỏi hoặc tài liệu của bạn. Bạn có thể thử các câu hỏi mẫu về Array, Pointer, Stack và độ phức tạp.', false);
     input.focus();
   }
   $('chatForm').addEventListener('submit', event => { event.preventDefault(); sendMessage(); });
@@ -107,14 +101,12 @@
   $('previousQuestion').addEventListener('click', () => { if (questionIndex > 0) { questionIndex--; renderQuiz(); } });
   $('nextQuestion').addEventListener('click', () => { if (answers[questionIndex] === null) return; if (questionIndex < questions.length - 1) questionIndex++; else finished = true; renderQuiz(); });
   function updateQuizHeading() {
-    const planner = document.querySelector('input[name="knowledgeSource"]:checked').value === 'planner';
-    $('quizHeading').textContent = `${examMode ? 'Đề thi mẫu' : 'Bài trắc nghiệm'} (${planner ? 'Từ lộ trình học' : 'Từ tài liệu gốc'})`;
-    $('quizDescription').textContent = `10 câu hỏi mẫu • Cấu trúc dữ liệu – Chương 1${planner ? ' · Chưa đọc lộ trình' : ''}`;
+    $('quizHeading').textContent = `${examMode ? 'Đề thi mẫu' : 'Bài trắc nghiệm'} (Từ tài liệu gốc)`;
+    $('quizDescription').textContent = '10 câu hỏi mẫu • Cấu trúc dữ liệu – Chương 1';
   }
   function resetQuiz(exam = examMode) { examMode = exam; questionIndex = 0; answers.fill(null); finished = false; updateQuizHeading(); renderQuiz(); }
   $('resetQuiz').addEventListener('click', () => resetQuiz());
-  $('createQuiz').addEventListener('click', () => { resetQuiz(false); $('quizHeading').scrollIntoView({ block: 'nearest' }); showToast('Đã mở 10 câu hỏi mẫu; chưa phân tích tài liệu.', 'info'); });
-  $('createExam').addEventListener('click', () => { resetQuiz(true); $('quizHeading').scrollIntoView({ block: 'nearest' }); showToast('Đã mở đề thi mẫu gồm 10 câu trắc nghiệm.', 'info'); });
-  document.querySelectorAll('input[name="knowledgeSource"]').forEach(input => input.addEventListener('change', () => { document.querySelectorAll('.source-option').forEach(option => option.classList.toggle('selected', option.querySelector('input').checked)); resetQuiz(); }));
+  $('createQuiz').addEventListener('click', () => { resetQuiz(false); document.querySelector('.quiz-panel').hidden = false; $('quizHeading').scrollIntoView({ block: 'nearest' }); showToast('Đã mở 10 câu hỏi mẫu; chưa phân tích tài liệu.', 'info'); });
+  $('createExam').addEventListener('click', () => { resetQuiz(true); document.querySelector('.quiz-panel').hidden = false; $('quizHeading').scrollIntoView({ block: 'nearest' }); showToast('Đã mở đề thi mẫu gồm 10 câu trắc nghiệm.', 'info'); });
   renderSubjects(); renderQuiz();
 })();

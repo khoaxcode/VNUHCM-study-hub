@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem('studyhub-theme')==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}</script>
-  <style>html[data-theme="dark"]{background:#0b0913;color-scheme:dark}</style>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VNU - StudyHub | Trang chủ</title>
@@ -12,7 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dev-banner.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+<link rel="stylesheet" href="css/landing-documents.css" />
   <link rel="stylesheet" href="css/background.css" />
   <script src="js/background.js" defer></script>
   <link rel="stylesheet" href="css/study-bot.css" />
@@ -21,8 +20,9 @@
   <script src="js/profile.js" defer></script>
   <link rel="stylesheet" href="css/theme.css" />
 <link rel="stylesheet" href="css/brand.css">
+<meta name="color-scheme" content="light">
 </head>
-<body data-active-nav="dashboard.html" class="dashboard-page">
+<body data-active-nav="dashboard.html" class="dashboard-page home-introduction-page">
 
 <div class="app-shell">
 
@@ -37,34 +37,43 @@
       <div class="topbar-actions" data-app-actions></div>
     </header>
 
-    <main class="page-body dashboard-body">
-      <section class="dashboard-hero" aria-labelledby="welcomeHeading">
-        <div class="hero-scene" aria-hidden="true">
-          <img class="hero-image" src="../resources/Tim.webp" alt="" />
-          <svg class="hero-animation" viewBox="0 0 1640 290" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs><linearGradient id="heroPageLight" x1="1285" y1="130" x2="1380" y2="65" gradientUnits="userSpaceOnUse"><stop stop-color="#e0ddfa"/><stop offset=".65" stop-color="#fbfaff"/><stop offset="1" stop-color="#d4d1ee"/></linearGradient><linearGradient id="heroCloudLight"><stop stop-color="#d2f4ff" stop-opacity=".06"/><stop offset=".5" stop-color="#e6faff" stop-opacity=".5"/><stop offset="1" stop-color="#d2f4ff" stop-opacity=".02"/></linearGradient></defs>
-            <g class="hero-book-page"><path d="M1286 146 Q1322 55 1360 52 L1405 50 Q1362 72 1365 155 Q1325 139 1286 146Z" fill="url(#heroPageLight)" stroke="#c9c7e8" stroke-width="1"/><path d="M1318 99q24-9 48-7M1312 113q22-8 42-6M1305 127q20-7 38-5" stroke="#bcbadd" stroke-width="3" opacity=".45"/></g>
-            <g class="hero-book-page page-follow"><path d="M1286 146 Q1322 55 1360 52 L1405 50 Q1362 72 1365 155 Q1325 139 1286 146Z" fill="url(#heroPageLight)"/></g>
-            <g class="hero-robot-eyes"><ellipse cx="1519" cy="9" rx="12" ry="19" fill="#07164d"/><ellipse cx="1559" cy="9" rx="12" ry="19" fill="#07164d"/><ellipse class="hero-robot-eye" cx="1519" cy="9" rx="9" ry="17" fill="#c8f2ff"/><ellipse class="hero-robot-eye eye-wink" cx="1559" cy="9" rx="9" ry="17" fill="#c8f2ff"/></g>
-            <path class="hero-atmosphere" d="M398 282 Q782-126 1220 280" stroke="#7deaff" stroke-width="5" stroke-linecap="round" opacity=".3"/>
-            <g class="hero-cloud-drift"><path d="M441 251q25-35 63-17 0-44 40-45 35-2 45 30 42-10 63 16 19 25-6 30H465q-36 0-24-14Z" fill="url(#heroCloudLight)"/></g>
-            <g class="hero-cloud-drift cloud-high"><path d="M996 123q-8-40 30-39 26-4 36 19 30-4 45 17 22 29 1 40l-91-10q-30-6-21-27Z" fill="url(#heroCloudLight)"/></g>
-            <g class="hero-star-twinkle" fill="#b8eaff"><circle cx="1104" cy="43" r="2"/><circle cx="731" cy="33" r="2.5"/><circle cx="471" cy="144" r="2"/><circle cx="1451" cy="164" r="2"/></g>
-          </svg>
-        </div>
-        <div class="hero-content">
-          <h1 id="welcomeHeading">Welcome back, Anh Khoa</h1>
-          <form class="dashboard-search" role="search" id="dashboardSearch">
-            <input type="search" id="schoolSearch" aria-label="Tìm trường hoặc môn học" placeholder="Tìm trường, môn,... (UIT CTTT Giải tích)." />
-            <button type="submit" aria-label="Tìm kiếm"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
-          </form>
+    <main class="page-body landing-body" id="landingMain">
+      <section class="intro-hero" aria-labelledby="introTitle">
+        <span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span>
+        <div class="intro-content"><p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+        <h1 id="introTitle">Học thông minh.<br><span>Vững tương lai.</span></h1>
+        <p class="intro-description">Tài liệu đúng môn. Kế hoạch đúng nhịp. Một nơi để bạn học chủ động hơn, cùng StudyHub.</p>
+        <div class="landing-actions"><a class="landing-button primary" href="#documents">Explore <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><a class="landing-button secondary" href="planner.html">Plan Now <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+        <div class="hero-footnote"><span>01 / KHÁM PHÁ</span><a href="#documents">Scroll to explore ↓</a></div></div>
+        <div class="hero-decoration" aria-hidden="true"><div class="floating-note note-a"><span>YOUR STUDY SPACE</span><strong>A little focus.<br>A lot of possibility.</strong><div class="note-lines"></div><div class="note-lines short"></div><span class="note-check">✓ Một bước gần hơn mục tiêu</span></div><div class="floating-note note-b"><span>THIS WEEK</span><strong>Make room<br>for progress.</strong><div class="week-dots"><b class="week-day" style="--day:0"><span class="day-letter">M</span><span class="day-tick">&#10003;</span></b><b class="week-day" style="--day:1"><span class="day-letter">T</span><span class="day-tick">&#10003;</span></b><b class="week-day" style="--day:2"><span class="day-letter">W</span><span class="day-tick">&#10003;</span></b><b class="week-day" style="--day:3"><span class="day-letter">T</span><span class="day-tick">&#10003;</span></b><b class="week-day" style="--day:4"><span class="day-letter">F</span><span class="day-tick">&#10003;</span></b></div></div><span class="hero-spark">✦</span></div>
+      </section>
+      <section class="documents-section landing-section" id="documents" aria-labelledby="documentsTitle">
+        <div class="section-heading"><p class="eyebrow">02 / TÀI LIỆU CHO BẠN</p><h2 id="documentsTitle">Đúng tài liệu.<br>Đúng điều bạn cần.</h2><p>Từ bài giảng đầu kỳ đến đề ôn cuối kỳ — khám phá tài liệu theo trường và môn học của bạn.</p></div>
+        <div class="document-marquee" aria-label="Các loại tài liệu học tập"><div class="document-track"></div></div>
+        <div class="section-action"><a class="landing-button primary" href="universities.html">Find your Documents <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><button class="motion-control" type="button" aria-pressed="false">Pause animation</button></div>
+      </section>
+      <section class="guide-section landing-section" aria-labelledby="guideTitle"><div class="section-heading"><p class="eyebrow">03 / BẮT ĐẦU THẬT DỄ</p><h2 id="guideTitle">Ít loay hoay hơn.<br>Nhiều thời gian để hiểu hơn.</h2><p>Ba cách để biến một buổi học thành một bước tiến.</p></div>
+      <div class="guide-grid">
+        <article class="guide-card"><div class="guide-picture planner-picture" role="img" aria-label="Minh họa Planner: chọn môn, đặt mục tiêu và chia lịch học"><div class="mini-window"><span class="mini-label">MY STUDY PLAN <b>✦</b></span><strong>Một tuần, có kế hoạch.</strong><div class="mini-task"><i>✓</i> Chọn môn cần ôn</div><div class="mini-task"><i>✓</i> Đặt mục tiêu của bạn</div><div class="mini-task"><i>3</i> Chia nhỏ lịch học</div><div class="mini-progress"><span></span></div></div><span class="picture-badge">Make it happen ↗</span></div><span class="guide-number">01 — PLAN IT</span><h3>Lên kế hoạch cùng AI Planner</h3><p>Chọn môn học, đặt mục tiêu và sắp xếp thời gian. Bắt đầu từ một kế hoạch phù hợp với bạn.</p><a href="planner.html">Thử AI Planner <span aria-hidden="true">→</span></a></article>
+        <article class="guide-card"><div class="guide-picture highlight-picture" role="img" aria-label="Xem trước tính năng sắp ra mắt: bôi đen nội dung để hỏi AI"><div class="mini-window"><span class="mini-label">READ. HIGHLIGHT. UNDERSTAND.</span><div class="fake-line"></div><p>Học không chỉ là ghi nhớ.<br><mark>Hiểu bản chất giúp bạn<br>kết nối kiến thức tốt hơn.</mark></p><span class="ask-ai-preview">✦ Ask AI</span><div class="fake-line"></div></div><span class="picture-badge">Một câu hỏi, thêm một góc nhìn.</span></div><span class="guide-number">02 — UNDERSTAND IT <small>Coming soon</small></span><h3>Bôi đen. Hỏi AI. Hiểu sâu hơn.</h3><p>Chọn đoạn nội dung bạn chưa hiểu và hỏi ngay trong lúc đọc. Tính năng này sẽ có trong bản cập nhật tiếp theo.</p><span class="coming-soon">Đang phát triển</span></article>
+        <article class="guide-card"><div class="guide-picture chat-picture" role="img" aria-label="Minh họa Chatbot với câu hỏi và câu trả lời trong cuộc trò chuyện"><div class="mini-window"><span class="mini-label">STUDYHUB CHAT <b>✦</b></span><div class="chat-bubble question">Mình nên bắt đầu ôn từ đâu?</div><div class="chat-bubble answer">Cùng chia nhỏ mục tiêu nhé.<br><span>01</span> Chọn chủ đề cần học<br><span>02</span> Thử một ví dụ đơn giản</div><div class="mini-composer">Đặt câu hỏi của bạn… <b>↑</b></div></div><span class="picture-badge">Keep asking. Keep learning.</span></div><span class="guide-number">03 — TALK IT THROUGH</span><h3>Cùng Chatbot gỡ từng câu hỏi</h3><p>Mở cuộc trò chuyện, đặt câu hỏi cụ thể và tiếp tục trao đổi để tìm hướng học phù hợp.</p><a href="chatbot.html">Mở AI Chatbot <span aria-hidden="true">→</span></a></article>
+      </div></section>
+      <section class="sharing-section landing-section" aria-labelledby="sharingTitle">
+        <div class="sharing-copy"><p class="eyebrow">04 / CÙNG NHAU TIẾN BỘ</p><h2 id="sharingTitle">Lộ trình của bạn.<br>Cảm hứng cho người khác.</h2><p>Một kế hoạch tốt còn giá trị hơn khi được sẻ chia. Gửi lộ trình học của bạn cho bạn bè, hoặc nhận một lộ trình để bắt đầu theo cách riêng.</p><ol class="sharing-steps"><li><span>01</span> Chọn lộ trình trong Space cá nhân.</li><li><span>02</span> Sao chép mã chia sẻ và gửi cho bạn bè.</li><li><span>03</span> Nhập mã để lưu một bản sao và học theo nhịp của bạn.</li></ol><a class="landing-button primary" href="space.html">Chia sẻ lộ trình <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+        <div class="sharing-preview" role="img" aria-label="Minh họa chia sẻ lộ trình từ Space cá nhân và nhận bản sao bằng mã chia sẻ"><div class="sharing-plan"><div class="sharing-plan-top"><span>MY LEARNING PATH</span><i class="fa-solid fa-route" aria-hidden="true"></i></div><h3>Từng bước chinh phục<br>Cấu trúc dữ liệu</h3><div class="sharing-milestone"><b>✓</b><span>Nắm vững kiến thức nền</span></div><div class="sharing-milestone"><b>2</b><span>Luyện tập theo chủ đề</span></div><div class="sharing-milestone"><b>3</b><span>Ôn tập và tự đánh giá</span></div><div class="sharing-code"><span>MÃ CHIA SẺ</span><strong>SH1-••••••</strong><i class="fa-regular fa-copy" aria-hidden="true"></i></div></div><div class="sharing-received"><span class="sharing-check">✓</span><div><strong>Một lộ trình. Thêm một người đồng hành.</strong><small>Nhận bản sao trong Space cá nhân</small></div></div><span class="sharing-spark" aria-hidden="true">✦</span></div>
+      </section>
+      <section class="about-section landing-section" aria-labelledby="aboutTitle">
+        <div class="section-heading"><p class="eyebrow">05 / THE PEOPLE BEHIND STUDYHUB</p><h2 id="aboutTitle">About us<span class="about-title-dot">.</span></h2><p>Hai cá tính. Một hành trình xây dựng StudyHub.</p></div>
+        <div class="about-team">
+          <article class="about-person about-leader"><img class="about-character" src="assets/about-leader-transparent.png" alt="Nhân vật minh họa Đặng Anh Khoa với mèo trắng trên đầu" width="480" height="800" loading="lazy"><div class="about-person-info"><div><h3>Đặng Anh Khoa</h3><p>Project Leader</p></div></div></article>
+          <article class="about-person about-co-leader"><img class="about-character" src="assets/about-co-leader-transparent.png" alt="Nhân vật minh họa Hà Anh Khoa đeo kính với mèo xám trên đầu" width="480" height="800" loading="lazy"><div class="about-person-info"><div><h3>Hà Anh Khoa</h3><p>Project Co-Leader</p></div></div></article>
         </div>
       </section>
-
-      <section class="school-section" aria-labelledby="schoolHeading">
-        <h2 id="schoolHeading">CHỌN TRƯỜNG ĐẠI HỌC</h2>
-        <div class="school-grid" data-school-grid></div>
-      </section>
+      <section class="feedback-section landing-section" aria-labelledby="feedbackTitle"><div class="section-heading"><p class="eyebrow">06 / GÓC NHÌN SINH VIÊN</p><h2 id="feedbackTitle">Một nơi học tập.<br>Nhiều điều để yêu thích.</h2><p>Các phản hồi minh họa — đang chờ câu chuyện thật từ bạn.</p></div><div class="testimonial-grid">
+      <figure class="testimonial"><div class="review-stars" aria-label="5 trên 5 sao">★★★★★</div><blockquote>“Có tài liệu theo trường và môn học giúp mình bắt đầu buổi ôn tập có định hướng hơn.”</blockquote><figcaption><span class="review-avatar">M</span><span>Minh Anh<small>Phản hồi minh họa · Tài liệu</small></span></figcaption></figure>
+      <figure class="testimonial"><div class="review-stars" aria-label="5 trên 5 sao">★★★★★</div><blockquote>“Chia mục tiêu thành từng buổi nhỏ khiến việc học bớt áp lực. Mỗi ngày đều biết mình nên làm gì.”</blockquote><figcaption><span class="review-avatar">K</span><span>Khánh Linh<small>Phản hồi minh họa · Planner</small></span></figcaption></figure>
+      <figure class="testimonial"><div class="review-stars" aria-label="5 trên 5 sao">★★★★★</div><blockquote>“Một không gian để tìm tài liệu, lên kế hoạch và đặt câu hỏi — mọi thứ gọn gàng hơn rất nhiều.”</blockquote><figcaption><span class="review-avatar">H</span><span>Hoàng Nam<small>Phản hồi minh họa · StudyHub</small></span></figcaption></figure>
+      </div><a class="feedback-link" href="feedback.html">Chia sẻ trải nghiệm của bạn ↗</a><footer class="landing-footer"><a class="studyhub-wordmark" href="#landingMain">Study<span class="studyhub-hub">Hub</span></a><span>Học thông minh · Vững tương lai</span><a href="universities.html">Bắt đầu khám phá →</a></footer></section>
     </main>
   </div><!-- /main-content -->
 </div><!-- /app-shell -->
@@ -72,9 +81,17 @@
 <script src="js/main.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/app-shell.js"></script>
-<script src="js/data/catalog.js"></script>
-<script src="js/catalog-pages.js"></script>
+
+
 <script src="js/dev-banner.js"></script>
-<script src="js/dashboard.js"></script>
+<script src="js/data/library-documents.js"></script>
+<script src="js/landing.js"></script>
+<script src="js/planner-demo.js"></script>
+<script src="js/quick-ask-demo.js"></script>
+<script src="js/chat-demo.js"></script>
+<script src="js/about.js"></script>
+<script src="js/scroll-star.js"></script>
+<script src="js/weighted-scroll.js"></script>
+<script src="js/footer.js"></script>
 </body>
 </html>

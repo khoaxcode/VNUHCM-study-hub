@@ -129,29 +129,6 @@ test('home hierarchy stays active and legacy pages still use filename navigation
   }
 });
 
-test('theme toggle restores preference, persists clicks and syncs across tabs', () => {
-  let saved = 'dark';
-  const root = { dataset: {} }, button = element(), listeners = {}, styles = [];
-  const control = { insertAdjacentElement(position, value) { assert.equal(value, button); } };
-  const ctx = vm.createContext({
-    localStorage: { getItem: () => saved, setItem(key, value) { assert.equal(key, 'studyhub-theme'); saved = value; } },
-    window: { addEventListener(type, callback) { listeners[type] = callback; } },
-    document: { documentElement: root, head: { appendChild(value) { styles.push(value); } }, createElement: tag => tag === 'button' ? button : {}, querySelector: selector => selector.startsWith('link') ? null : ({ querySelector: () => control }), addEventListener() {} }
-  });
-  vm.runInContext(read('js/main.js'), ctx);
-  assert.equal(root.dataset.theme, 'dark');
-  assert.equal(styles[0].href, 'css/theme.css');
-  ctx.initThemeToggle();
-  assert.equal(button.attrs['aria-pressed'], 'true');
-  button.listeners.click();
-  assert.equal(root.dataset.theme, 'light');
-  assert.equal(saved, 'light');
-  assert.equal(button.attrs['aria-pressed'], 'false');
-  listeners.storage({ key: 'studyhub-theme', newValue: 'dark' });
-  assert.equal(root.dataset.theme, 'dark');
-  assert.equal(button.attrs['aria-pressed'], 'true');
-});
-
 function apiContext(fetch) {
   const ctx = context({ URL, URLSearchParams, AbortController, FormData, setTimeout, clearTimeout, fetch,
     location: { href: 'https://studyhub.test/file.html', protocol: 'https:' } });

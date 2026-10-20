@@ -7,15 +7,6 @@
   --rain-cyan: #008fa898;
   --rain-blue: #357dd7a0;
 }
-html[data-theme="dark"] {
-  --ambient-base: #0b0913;
-  --ambient-grid: #a563dc22;
-  --ambient-violet: #52278038;
-  --ambient-cyan: #00c6ef18;
-  --rain-violet: #aa60eda0;
-  --rain-cyan: #00c6e99a;
-  --rain-blue: #477bda98;
-}
 body { isolation: isolate; }
 .ambient-background { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background-color: var(--ambient-base); background-image: radial-gradient(ellipse at 10% 15%, var(--ambient-violet), transparent 55%), radial-gradient(ellipse at 90% 85%, var(--ambient-cyan), transparent 50%), linear-gradient(var(--ambient-grid) 1px, transparent 1px), linear-gradient(90deg, var(--ambient-grid) 1px, transparent 1px); background-size: auto, auto, 64px 64px, 64px 64px; transition: background-color .3s ease; }
 /* Let the shared background show through page surfaces; cards retain solid fills. */

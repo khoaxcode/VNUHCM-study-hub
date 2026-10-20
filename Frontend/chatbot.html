@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem('studyhub-theme')==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}</script>
-  <style>html[data-theme="dark"]{background:#0b0913;color-scheme:dark}</style>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VNU - StudyHub | AI Chatbot</title>
@@ -21,6 +19,7 @@
   <script src="js/profile.js" defer></script>
   <link rel="stylesheet" href="css/theme.css" />
 <link rel="stylesheet" href="css/brand.css">
+<meta name="color-scheme" content="light">
 </head>
 <body>
 
@@ -43,25 +42,19 @@
       <a href="library.html" class="nav-item" data-page="library.html">
         <i class="fa-regular fa-calendar-check"></i><span>Kho tài liệu</span>
       </a>
+      <hr class="nav-divider">
       <a href="planner.html" class="nav-item" data-page="planner.html">
         <i class="fa-solid fa-brain"></i><span>AI Planner</span>
       </a>
       <a href="chatbot.html" class="nav-item active" data-page="chatbot.html">
         <i class="fa-regular fa-comment-dots"></i><span>AI Chatbot</span>
       </a>
+      <hr class="nav-divider">
       <a href="space.html" class="nav-item" data-page="space.html">
         <i class="fa-regular fa-user"></i><span>Space cá nhân</span>
       </a>
     </nav>
 
-    <div class="sidebar-user">
-      <div class="user-avatar">NA</div>
-      <div class="user-info">
-        <h4>Nguyễn Văn A</h4>
-        <p>Sinh viên</p>
-      </div>
-      <i class="fa-solid fa-chevron-up chevron"></i>
-    </div>
   </aside>
 
   <!-- ═══ Main ═════════════════════════════════════════════════════ -->
@@ -88,12 +81,10 @@
         <form class="subject-search" id="subjectSearchForm"><label><i class="fa-solid fa-magnifying-glass"></i><input id="subjectSearch" type="search" placeholder="Tìm môn học..." aria-label="Tìm môn học" /></label><button class="primary-button" type="submit"><i class="fa-solid fa-plus"></i> Thêm</button></form>
         <div id="availableSubjects" class="subject-cards"></div>
         <p id="subjectEmpty" class="panel-description" hidden>Không tìm thấy môn học.</p>
-        <div class="selected-heading"><h4>Môn học đã thêm (<span id="selectedCount">3</span>)</h4><button id="clearSubjects"><i class="fa-regular fa-trash-can"></i> Xóa tất cả</button></div>
+        <div class="selected-heading"><h4><button id="toggleSelectedSubjects" type="button" aria-expanded="true" aria-controls="selectedSubjects">Môn học đã thêm (<span id="selectedCount">3</span>) <i class="fa-solid fa-chevron-up" aria-hidden="true"></i></button></h4><button id="clearSubjects"><i class="fa-regular fa-trash-can"></i> Xóa tất cả</button></div>
         <div id="selectedSubjects" class="subject-cards"></div>
       </section>
       <section class="conversation-panel" aria-label="Trò chuyện với trợ lý học tập">
-        <div class="document-toolbar"><div class="document-info"><i class="fa-solid fa-file-pdf"></i><div><strong id="documentName">Cấu trúc dữ liệu và giải thuật – Chương 1.pdf</strong><p id="documentMeta">2.4 MB • 14 trang · Tài liệu mẫu</p></div></div><button class="icon-button" id="removeDocument" aria-label="Gỡ tài liệu"><i class="fa-solid fa-xmark"></i></button><button class="soft-button" id="addDocument"><i class="fa-solid fa-plus"></i> Thêm tài liệu khác</button></div>
-        <input id="documentPicker" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt" hidden />
         <div class="conversation-scroll" id="conversationScroll">
           <div class="welcome-card" id="welcomeCard"><div class="welcome-intro"><div class="robot-avatar" aria-hidden="true"><div class="bot-body"><div class="bot-shell-depth" style="--slice: 1"></div><div class="bot-shell-depth" style="--slice: 2"></div><div class="bot-shell-depth" style="--slice: 3"></div><div class="bot-shell-depth" style="--slice: 4"></div><div class="bot-shell-depth" style="--slice: 5"></div><div class="bot-shell-depth" style="--slice: 6"></div><div class="bot-shell-depth" style="--slice: 7"></div><div class="bot-shell-depth" style="--slice: 8"></div><div class="bot-shell-depth" style="--slice: 9"></div><div class="bot-shell-depth" style="--slice: 10"></div><div class="bot-shell-depth" style="--slice: 11"></div><div class="bot-shell-depth" style="--slice: 12"></div><div class="bot-shell"></div><div class="bot-base"></div><div class="bot-visor"></div><div class="bot-face"><span class="bot-eye eye-left"></span><span class="bot-eye eye-right"></span><span class="bot-mouth"></span></div></div><i class="bot-spark spark-left fa-solid fa-bolt"></i><i class="bot-spark spark-right fa-solid fa-bolt"></i></div><div><h3>Xin chào! 👋</h3><h4>Mình là AI trợ lý học tập của bạn.</h4><p>Mình có thể giúp bạn khám phá kiến thức trong các môn học đã chọn. Bạn có thể bắt đầu với một câu hỏi bên dưới.</p><p>Ví dụ:</p></div></div><div class="suggestion-grid" id="suggestions"><button>Giải thích khái niệm mảng (Array)</button><button>So sánh mảng và danh sách liên kết</button><button>Giải thích Pointer trong C++</button><button>Cho ví dụ minh họa về ngăn xếp (Stack)</button><button>Tóm tắt nội dung chương 1</button><button>Độ phức tạp thuật toán là gì?</button></div></div>
           <div class="chat-messages" id="aiMessages" role="log" aria-live="polite" aria-label="Tin nhắn"></div>
@@ -102,8 +93,7 @@
       </section>
       <aside class="learning-panel" aria-label="Nguồn kiến thức và bài luyện tập">
         <div class="study-actions"><button id="createQuiz" class="quiz-action"><i class="fa-solid fa-clipboard-question"></i> Tạo trắc nghiệm<small>Tạo câu hỏi trắc nghiệm từ tài liệu</small></button><button id="createExam" class="exam-action"><i class="fa-solid fa-file-lines"></i> Tạo đề thi<small>Tạo đề thi theo chủ đề</small></button></div>
-        <section class="knowledge-panel"><h3>Nguồn kiến thức</h3><p class="panel-description">Chọn nguồn tài liệu mà AI sẽ sử dụng để trả lời</p><label class="source-option"><input type="radio" name="knowledgeSource" value="planner" /><span class="source-icon"><i class="fa-solid fa-book-open"></i></span><span><strong>Hỏi từ lộ trình học</strong><small>Chỉ đọc từ file PDF đã xuất trong AI Planner (Optimized kế hoạch học tập).</small></span><i class="fa-regular fa-circle-question" title="Chế độ mẫu; chưa kết nối tài liệu từ AI Planner"></i></label><label class="source-option selected"><input type="radio" name="knowledgeSource" value="original" checked /><span class="source-icon"><i class="fa-solid fa-file-lines"></i></span><span><strong>Hỏi từ tài liệu gốc</strong><small>Đọc tất cả tài liệu trong các môn học đã chọn (PDF, DOC, PPTX, XLSX, ...).</small></span><i class="fa-regular fa-circle-question" title="Chế độ mẫu; chưa đọc nội dung tài liệu"></i></label></section>
-        <section class="quiz-panel" aria-labelledby="quizHeading"><div class="quiz-heading"><div><h3 id="quizHeading">Bài trắc nghiệm (Từ tài liệu gốc)</h3><p class="panel-description" id="quizDescription">10 câu hỏi mẫu • Cấu trúc dữ liệu – Chương 1</p></div><button class="soft-button" id="resetQuiz"><i class="fa-solid fa-rotate"></i> Tạo lại</button></div><div class="quiz-card"><span class="question-badge" id="questionBadge">Câu 1/10</span><h4 id="questionText"></h4><fieldset class="quiz-answers" id="quizAnswers"><legend class="sr-only">Chọn câu trả lời</legend></fieldset><p id="quizFeedback" class="quiz-feedback" role="status"></p><div class="quiz-navigation"><button id="previousQuestion"><i class="fa-solid fa-chevron-left"></i> Câu trước</button><button id="nextQuestion" class="primary-button">Câu tiếp theo <i class="fa-solid fa-chevron-right"></i></button></div></div></section>
+        <section class="quiz-panel" aria-labelledby="quizHeading" hidden><div class="quiz-heading"><div><h3 id="quizHeading">Bài trắc nghiệm (Từ tài liệu gốc)</h3><p class="panel-description" id="quizDescription">10 câu hỏi mẫu • Cấu trúc dữ liệu – Chương 1</p></div><button class="soft-button" id="resetQuiz"><i class="fa-solid fa-rotate"></i> Tạo lại</button></div><div class="quiz-card"><span class="question-badge" id="questionBadge">Câu 1/10</span><h4 id="questionText"></h4><fieldset class="quiz-answers" id="quizAnswers"><legend class="sr-only">Chọn câu trả lời</legend></fieldset><p id="quizFeedback" class="quiz-feedback" role="status"></p><div class="quiz-navigation"><button id="previousQuestion"><i class="fa-solid fa-chevron-left"></i> Câu trước</button><button id="nextQuestion" class="primary-button">Câu tiếp theo <i class="fa-solid fa-chevron-right"></i></button></div></div></section>
       </aside>
     </main>
   </div>

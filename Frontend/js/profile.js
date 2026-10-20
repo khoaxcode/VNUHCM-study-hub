@@ -20,20 +20,29 @@
   }
   function init() {
     update();
-    const user = document.querySelector('.sidebar-user');
+    let user = document.querySelector('.topbar-actions .avatar-btn');
+    if (user && user.tagName !== 'BUTTON') {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = user.className;
+      button.append(...user.childNodes);
+      user.replaceWith(button);
+      user = button;
+    }
     if (user) {
       user.setAttribute('role', 'button'); user.tabIndex = 0; user.setAttribute('aria-expanded', 'false'); user.setAttribute('aria-controls', 'accountMenu'); user.setAttribute('aria-label', 'Tùy chọn tài khoản');
       const menu = document.createElement('div'); menu.id = 'accountMenu'; menu.className = 'account-menu'; menu.hidden = true;
       menu.innerHTML = '<a href="profile.html"><i class="fa-solid fa-user-pen" aria-hidden="true"></i>Profile</a><a href="feedback.html"><i class="fa-regular fa-comment-dots" aria-hidden="true"></i>Feedback</a><button type="button" id="logoutButton"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Logout</button>';
       document.body.append(menu);
       function close() { menu.hidden = true; user.setAttribute('aria-expanded', 'false'); }
-      function toggle() { const opening = menu.hidden; close(); if (opening) { const rect = user.getBoundingClientRect(); menu.style.left = `${rect.left + 8}px`; menu.style.bottom = `${innerHeight - rect.top + 8}px`; menu.hidden = false; user.setAttribute('aria-expanded', 'true'); menu.querySelector('a').focus(); } }
+      function toggle() { const opening = menu.hidden; close(); if (opening) { const rect = user.getBoundingClientRect(); menu.style.right = `${Math.max(12, innerWidth - rect.right)}px`; menu.style.top = `${rect.bottom + 10}px`; menu.hidden = false; user.setAttribute('aria-expanded', 'true'); menu.querySelector('a').focus(); } }
       user.addEventListener('click', toggle);
-      user.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); } });
+      user.addEventListener('keydown', event => { if (event.key === 'ArrowDown') { event.preventDefault(); if (menu.hidden) toggle(); else menu.querySelector('a').focus(); } });
       document.addEventListener('click', event => { if (!user.contains(event.target) && !menu.contains(event.target)) close(); });
       document.addEventListener('keydown', event => { if (event.key === 'Escape' && !menu.hidden) { close(); user.focus(); } });
       window.addEventListener('resize', close);
-      menu.querySelector('#logoutButton').addEventListener('click', () => { try { sessionStorage.removeItem('studyhub-session'); } catch { /* Storage may be unavailable. */ } location.replace('index.html'); });
+      document.addEventListener('focusin', event => { if (!user.contains(event.target) && !menu.contains(event.target)) close(); });
+      menu.querySelector('#logoutButton').addEventListener('click', () => { try { sessionStorage.removeItem('studyhub-session'); } catch { /* Storage may be unavailable. */ } location.replace('dashboard.html'); });
 
     }
     const form = document.getElementById('profileForm'); if (!form) return;

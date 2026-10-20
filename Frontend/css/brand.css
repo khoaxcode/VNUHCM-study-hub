@@ -9,9 +9,104 @@
 .sidebar-logo .studyhub-mark { width: 44px; height: 44px; }
 .sidebar-logo .logo-text { min-width: 0; }
 .sidebar-logo .studyhub-wordmark { font-size: 25px; line-height: 1.2; }
-[data-theme="dark"] .studyhub-wordmark { color: #82b6ff; }
-[data-theme="dark"] .studyhub-hub { color: #30c7ff; }
 @media (max-width: 700px) {
   .brand { margin: 20px 28px; font-size: 26px; }
   .brand .studyhub-mark { width: 46px; height: 46px; }
 }
+
+/* Full-width header with a toggleable page navigation drawer. */
+.app-shell.has-header-navigation { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 76px minmax(0, 1fr); position: relative; }
+.has-header-navigation > .topbar { grid-column: 1; grid-row: 1; height: 76px; padding: 0 24px; gap: 24px; z-index: 40; min-width: 0; }
+.has-header-navigation > .main-content { grid-column: 1; grid-row: 2; }
+.header-navigation { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+.header-menu-toggle { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 8px; background: transparent; color: var(--gray-800); cursor: pointer; }
+.header-menu-toggle svg { width: 26px; height: 26px; }
+.header-menu-toggle:hover { background: var(--gray-100); }
+.header-brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+.header-brand .studyhub-wordmark { font-size: 28px; line-height: 1; }
+.university-button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 16px; border-radius: 8px; color: var(--gray-800); font-size: 17px; font-weight: 600; text-decoration: none; }
+.university-button:hover { background: var(--gray-100); }
+.has-header-navigation .topbar-actions { margin-left: auto; flex-shrink: 0; }
+.has-header-navigation > .sidebar { position: absolute; inset: 76px auto 0 0; width: 250px; min-width: 250px; z-index: 35; visibility: hidden; transform: translateX(-100%); transition: transform .2s ease, visibility .2s; box-shadow: 8px 0 24px #10204418; }
+.has-header-navigation.navigation-open > .sidebar { visibility: visible; transform: translateX(0); }
+.has-header-navigation .sidebar .nav-item span, .has-header-navigation .sidebar .user-info, .has-header-navigation .sidebar .chevron { display: block; }
+.navigation-backdrop { position: absolute; inset: 76px 0 0; z-index: 30; border: 0; background: #101b3840; cursor: pointer; }
+.navigation-backdrop[hidden] { display: none; }
+.header-navigation :is(a, button):focus-visible { outline: 3px solid #159bff; outline-offset: 3px; }
+@media (max-width: 1100px) {
+  .has-header-navigation > .topbar > :not(.header-navigation):not(.topbar-actions) { display: none; }
+}
+@media (max-width: 600px) {
+  .app-shell.has-header-navigation { grid-template-rows: 112px minmax(0, 1fr); }
+  .has-header-navigation > .topbar { height: 112px; padding: 8px 10px; gap: 4px; flex-wrap: wrap; }
+  .header-navigation { gap: 8px; flex: 1 0 100%; }
+  .header-brand { gap: 5px; }
+  .header-brand .studyhub-mark { width: 32px; height: 36px; }
+  .header-brand .studyhub-wordmark { font-size: 22px; }
+  .university-button { font-size: 14px; padding-inline: 8px; margin-left: auto; }
+  .has-header-navigation .topbar-actions { margin-left: auto; }
+  .has-header-navigation > .sidebar, .navigation-backdrop { top: 112px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .has-header-navigation > .sidebar { transition: none; }
+}
+
+/* The menu icon follows the drawer's expanded state. */
+.header-menu-toggle { transition: background-color .18s ease, transform .18s ease; }
+.header-menu-toggle .menu-line { transform-origin: 12px 12px; transition: transform .24s cubic-bezier(.22, 1, .36, 1), opacity .16s ease; }
+.header-menu-toggle[aria-expanded="true"] .menu-line-top { transform: rotate(45deg) translateY(6px); }
+.header-menu-toggle[aria-expanded="true"] .menu-line-middle { opacity: 0; transform: scaleX(.4); }
+.header-menu-toggle[aria-expanded="true"] .menu-line-bottom { transform: rotate(-45deg) translateY(-6px); }
+@media (hover: hover) {
+  .header-menu-toggle:hover { transform: scale(1.06); }
+}
+.header-menu-toggle:active { transform: scale(.94); }
+@media (prefers-reduced-motion: reduce) {
+  .header-menu-toggle, .header-menu-toggle .menu-line { transition: none; }
+  .header-menu-toggle:hover, .header-menu-toggle:active { transform: none; }
+}
+
+/* Separate study resources, AI tools, and personal space. */
+.sidebar-nav .nav-divider {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+  height: 0;
+  margin: 16px 12px;
+  border: 0;
+  border-top: 1px solid var(--gray-200);
+}
+.header-login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 42px;
+  padding: 0 22px;
+  border-radius: 24px;
+  background: #2463eb;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px #2463eb20;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.header-login-button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px #2463eb30; }
+.header-login-button:focus-visible { outline: 3px solid #159bff; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .header-login-button { transition: none; }
+  .header-login-button:hover { transform: none; }
+}
+
+/* Float homepage navigation over the page instead of a white header strip. */
+.home-introduction-page .app-shell.has-header-navigation { grid-template-rows: 0 minmax(0, 1fr); }
+.home-introduction-page .has-header-navigation > .topbar { position: absolute; top: 0; left: 0; right: 0; background: transparent; border-bottom: 0; box-shadow: none; }
+.home-introduction-page .landing-body { --landing-header-height: 0px; scroll-padding-top: 100px; }
+.home-introduction-page .intro-hero { padding-top: 145px; }
+@media(max-width:700px){.home-introduction-page .intro-hero { padding-top: 140px; }}
+@media(max-width:600px){.home-introduction-page .intro-hero { padding-top: 160px; }.home-introduction-page .landing-body { scroll-padding-top: 130px; }}
+
+.home-introduction-page .has-header-navigation > .topbar { transition: background-color .25s ease, box-shadow .25s ease; }
+.home-introduction-page .has-header-navigation.header-scrolled > .topbar { background: #fff; box-shadow: 0 1px 0 #dce5ef, 0 4px 16px #18355208; }
+@media(prefers-reduced-motion:reduce){.home-introduction-page .has-header-navigation > .topbar{transition:none}}

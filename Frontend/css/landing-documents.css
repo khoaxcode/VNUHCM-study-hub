@@ -1,0 +1,62 @@
+/* Reuse the library thumbnail designs for the homepage demo carousel. */
+.document-preview {
+  position: relative; display: grid; place-items: center; height: clamp(138px, 8.4vw, 162px);
+  overflow: hidden; border-radius: 10px;
+}
+.document-preview::before, .document-preview::after { content: ''; position: absolute; pointer-events: none; }
+.preview-visual { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; color: var(--visual-color); }
+.preview-visual i { font-size: clamp(58px, 5vw, 88px); }
+.preview-visual span { font-weight: 700; }
+.document-cover { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.document-type {
+  position: absolute; z-index: 3; top: 12px; left: 12px;
+  display: grid; place-items: center; min-width: 48px; height: 39px; padding: 0 8px;
+  border-radius: 9px; color: #fff; font-size: 13px; font-weight: 800;
+  box-shadow: 0 3px 8px #0002;
+}
+.document-type.pdf { background: #f02e3b; } .document-type.doc { background: #256de6; }
+.document-type.ppt { background: #ff812e; } .document-type.xlsx { background: #23b961; }
+.art-math { --visual-color: #2c6eb2; background: linear-gradient(125deg, #d6edff, #bddcfb 55%, #d5e9ff); }
+.art-math::before { width: 120%; height: 65%; bottom: -39%; left: -8%; border: 2px solid #5db3e9; border-radius: 50%; transform: rotate(-15deg); }
+.art-math::after { inset: 0; background: repeating-linear-gradient(90deg, transparent 0 48px, #ffffff4a 49px 50px); }
+.art-math .preview-visual { font-family: Georgia, serif; font-size: clamp(28px, 2.2vw, 45px); font-style: italic; }
+.art-tree { --visual-color: #4e61c9; background: radial-gradient(circle at 50% 50%, #cdd6ff, #e5e7ff); }
+.art-tree::after { inset: 13px 20px; border: 2px solid #ffffff88; border-radius: 12px; }
+.art-terminal { --visual-color: #50bbed; background: linear-gradient(125deg, #0a3f67, #164f81 60%, #0b3765); }
+.art-terminal::before { inset: 0; opacity: .2; background: repeating-linear-gradient(90deg, transparent 0 28px, #73c6ef 29px 30px); }
+.art-terminal .preview-visual span { padding: 12px 24px; border: 2px solid #5aaee0; border-radius: 10px; background: #0b2b4d; color: #e6f6ff; font-family: monospace; font-size: 34px; }
+.art-statistics { --visual-color: #de6d73; background: linear-gradient(135deg, #fff2e9, #ffe7dd); }
+.art-statistics::before { width: 60%; height: 75%; left: 20%; bottom: -51%; border: 3px solid #d66f7a; border-radius: 50% 50% 0 0; background: #ffc0c88a; }
+.art-network { --visual-color: #559bec; background: linear-gradient(130deg, #dcecff, #c7e1ff); }
+.art-network::after { inset: 0; opacity: .5; background: radial-gradient(circle, #5795d9 2px, transparent 3px) 0 0 / 38px 38px; }
+.art-database { --visual-color: #539399; background: linear-gradient(125deg, #ddf7ed, #bdebd8); }
+.art-database .preview-visual span { color: #497f81; font-size: 30px; }
+.art-bars { --visual-color: #ed8e3d; background: linear-gradient(120deg, #fff2e4, #ffe0c6); }
+.art-bars::after { bottom: 18px; left: 12%; width: 76%; height: 2px; background: #e6ac7b; }
+.art-code { --visual-color: #deab68; background: linear-gradient(120deg, #152845, #22385c); }
+.art-code .preview-visual span { padding: 14px 20px; border: 1px solid #677895; border-radius: 8px; background: #14243e; color: #ffc17c; font: 13px/1.65 monospace; text-align: left; }
+
+
+.document-marquee .document-track { animation-duration: 48s; }
+.document-marquee .demo-document-card { width: 320px; flex-shrink: 0; padding: 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: 0 4px 18px #17233a07; }
+.document-marquee .document-preview { width: 100%; height: 155px; padding: 0; border-radius: 11px; }
+.document-marquee .preview-visual i { font-size: 65px; }
+.document-marquee .art-math .preview-visual { font-size: 34px; }
+.document-marquee .art-terminal .preview-visual { gap: 12px; }
+.document-marquee .art-terminal .preview-visual span { padding: 9px 15px; font-size: 27px; }
+.document-marquee .art-code .preview-visual span { padding: 12px; font-size: 11px; }
+.demo-document-details { display: flex; flex-direction: column; min-height: 158px; padding: 14px 9px 8px; }
+.document-marquee .demo-document-details h3 { font-size: 14px; line-height: 1.5; min-height: 42px; margin: 0; color: var(--ink); }
+.demo-school-tag { align-self: flex-start; margin-top: 12px; padding: 4px 10px; border-radius: 8px; background: #e8f0ff; color: #2367d7; font-size: 11px; font-weight: 700; }
+.demo-document-size { margin-top: auto; padding-top: 20px; color: var(--muted); font-size: 12px; }
+@media (max-width: 700px) { .document-marquee .demo-document-card { width: 280px; } }
+
+/* Keep the carousel moving while the hovered card lifts slightly. */
+.document-marquee .demo-document-card { transition: transform .2s ease, box-shadow .2s ease; transform-origin: center; }
+@media (hover: hover) {
+  .document-marquee .demo-document-card:hover { transform: translateY(-3px) scale(1.035); box-shadow: 0 10px 26px #17233a18; position: relative; z-index: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .document-marquee .demo-document-card { transition: none; }
+  .document-marquee .demo-document-card:hover { transform: none; }
+}

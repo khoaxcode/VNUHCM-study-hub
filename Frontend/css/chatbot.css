@@ -88,9 +88,10 @@
 .message-content { max-width: 85%; padding: 12px 15px; border-radius: 12px; background: #eef4ff; font-size: 13px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
 .message.user .message-content { color: #fff; background: #3484ff; }
 .message.ai .message-content small { display: block; color: #7a89a2; margin-bottom: 5px; font-size: 10px; }
-.composer-wrap { padding: 12px 18px; border-top: 1px solid #e7edf6; background: #fff; }
-.chat-composer { display: flex; align-items: center; gap: 14px; border: 1px solid #dce4ef; border-radius: 15px; padding: 10px 12px; }
-.chat-composer textarea { flex: 1; min-width: 0; max-height: 110px; resize: vertical; border: 0; outline: 0; padding: 10px 0; font-size: 12px; color: #142047; }
+.composer-wrap { margin: 12px; padding: 14px 16px 12px; border: 1px solid #dce8fc; border-radius: 22px; background: #eef5ff; box-shadow: 0 4px 16px #2563eb06; }
+.chat-composer { display: flex; align-items: center; gap: 14px; border: 1px solid #d5e3fa; border-radius: 18px; padding: 10px 12px; background: #ffffffc9; transition: border-color .2s ease, box-shadow .2s ease; }
+.chat-composer:focus-within { border-color: #8bb6fa; box-shadow: 0 0 0 3px #3b82f610; }
+.chat-composer textarea { flex: 1; min-width: 0; max-height: 110px; resize: vertical; border: 0; outline: 0; padding: 10px 0; font-size: 12px; color: #142047; background: transparent; }
 .chat-composer textarea::placeholder { color: #8998af; }
 .chat-send { width: 48px; height: 48px; flex-shrink: 0; border: 0; border-radius: 50%; background: #0875ff; color: #fff; font-size: 20px; }
 .chat-send { position: relative; transition: transform .3s cubic-bezier(.22, 1.4, .45, 1), background-color .25s ease, box-shadow .25s ease; }
@@ -150,3 +151,12 @@
 @media (max-width: 1200px) { .chatbot-workspace { overflow-y: auto; display: grid; grid-template-columns: 270px minmax(0, 1fr); align-content: start; } .subject-panel { overflow: visible; grid-row: 1 / 3; } .conversation-panel { min-height: 650px; border-right: 0; } .conversation-scroll { max-height: 530px; } .learning-panel { overflow: visible; grid-column: 2; } .learning-panel .study-actions { margin-top: 12px; } }
 @media (max-width: 800px) { .chatbot-workspace { grid-template-columns: 1fr; } .subject-panel { grid-row: auto; border-right: 0; border-bottom: 1px solid #e7edf6; } .subject-cards { display: grid; grid-template-columns: 1fr 1fr; } .learning-panel { grid-column: 1; } .conversation-panel { min-height: 580px; } .topbar { gap: 8px; padding: 0 12px; } .topbar-actions { gap: 6px; } .topbar h2 { font-size: 15px !important; } .topbar p { display: none; } .model-select { padding: 6px; } .model-select select { max-width: 80px; } }
 @media (max-width: 520px) { .subject-cards, .suggestion-grid { grid-template-columns: 1fr; } .conversation-scroll { padding: 16px 12px; } .welcome-intro { flex-direction: column; } .welcome-intro h3 { font-size: 18px; } .suggestion-grid { gap: 8px; } .study-actions { gap: 8px; } .study-actions button { font-size: 12px; } .study-actions small { font-size: 10px; } .quiz-card { padding: 14px; } .quiz-navigation { flex-wrap: wrap; } .quiz-heading { flex-wrap: wrap; } .topbar-icon-btn { width: 28px; height: 28px; } .topbar-actions .avatar-btn { display: none; } .composer-wrap { padding: 12px; } .chat-composer { gap: 6px; } }
+
+#toggleSelectedSubjects { display: inline-flex; align-items: center; gap: 10px; border: 0; padding: 6px 0; background: transparent; color: inherit; font: inherit; font-weight: inherit; text-align: left; cursor: pointer; }
+#toggleSelectedSubjects i { font-size: 11px; transition: transform .2s ease; }
+#toggleSelectedSubjects[aria-expanded="false"] i { transform: rotate(180deg); }
+#toggleSelectedSubjects:focus-visible { outline: 2px solid #3987ff; outline-offset: 4px; border-radius: 4px; }
+#selectedSubjects[hidden] { display: none; }
+@media(prefers-reduced-motion:reduce){#toggleSelectedSubjects i{transition:none}}
+
+.quiz-panel[hidden] { display: none; }

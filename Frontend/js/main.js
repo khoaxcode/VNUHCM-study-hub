@@ -3,47 +3,20 @@
  * Utility functions used across all pages
  */
 
-// Load the shared theme after page-specific styles so every page uses the same palette.
-(() => {
-  let theme = 'light';
-  try { if (localStorage.getItem('studyhub-theme') === 'dark') theme = 'dark'; } catch { /* Use light mode. */ }
-  document.documentElement.dataset.theme = theme;
-  if (document.querySelector('link[href="css/theme.css"]')) return;
-  const stylesheet = document.createElement('link');
-  stylesheet.rel = 'stylesheet';
-  stylesheet.href = 'css/theme.css';
-  document.head.appendChild(stylesheet);
-})();
-
-function initThemeToggle() {
-  const actions = document.querySelector('.topbar-actions');
-  if (!actions) return;
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'topbar-icon-btn theme-toggle';
-  button.innerHTML = '<span class="theme-landscape theme-day" aria-hidden="true"><svg viewBox="0 0 300 114" preserveAspectRatio="none"><path d="M0 90Q45 66 76 47Q90 36 115 45Q143 53 167 65Q204 85 300 99V114H0Z" fill="#df426d"/><path d="M0 107Q49 83 103 72Q155 61 164 57Q135 36 112 39Q85 34 60 53Z" fill="#ac225b"/><path d="M0 114Q47 91 79 88Q61 95 55 97Q105 99 91 105Q77 109 46 114Z" fill="#a72a64"/><path d="M36 28q6-12 15-5q5-13 15-7q10 5 11 11M92 20q6-15 16-8q8-9 15 3q10-5 14 5" fill="#ffd6d4" opacity=".35"/><g fill="#ffe3df" opacity=".7"><circle cx="32" cy="39" r="1.5"/><circle cx="90" cy="24" r="1.5"/></g></svg></span><span class="theme-landscape theme-night" aria-hidden="true"><svg viewBox="0 0 300 114" preserveAspectRatio="none"><path d="M75 94Q123 65 182 45Q198 38 217 46Q259 64 300 88V114H75Z" fill="#312765"/><path d="M120 84Q165 63 207 56Q221 54 234 57Q257 64 281 76Q229 70 209 73Q188 75 178 83Q158 87 120 84Z" fill="#32235e"/><path d="M86 114Q129 94 187 88Q211 87 218 90Q222 94 202 97Q190 102 212 106Q239 110 262 114Z" fill="#725291"/><g fill="#a497d4" opacity=".5"><circle cx="147" cy="22" r="1.7"/><circle cx="194" cy="13" r="1.2"/><circle cx="270" cy="62" r="1.4"/><circle cx="228" cy="31" r="1"/></g></svg><span class="theme-crescent"></span></span><span class="theme-thumb" aria-hidden="true"></span>';
-  const firstControl = actions.querySelector('.topbar-icon-btn');
-  if (firstControl) firstControl.insertAdjacentElement('afterend', button);
-  else actions.prepend(button);
-  function update() {
-    const dark = document.documentElement.dataset.theme === 'dark';
-    button.setAttribute('aria-pressed', String(dark));
-    button.setAttribute('aria-label', dark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
-    button.title = dark ? 'Chế độ sáng' : 'Chế độ tối';
-  }
-  button.addEventListener('click', () => {
-    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = theme;
-    update();
-    try { localStorage.setItem('studyhub-theme', theme); } catch { /* Theme remains active for this page. */ }
-  });
-  window.addEventListener('storage', event => {
-    if (event.key === 'studyhub-theme') { document.documentElement.dataset.theme = event.newValue === 'dark' ? 'dark' : 'light'; update(); }
-  });
-  update();
+function isStudyHubSignedIn() {
+  try {
+    const session = JSON.parse(sessionStorage.getItem('studyhub-session'));
+    return session?.role === 'student' || session?.role === 'admin';
+  } catch { return false; }
 }
 
-// ── Active nav highlight ──────────────────────────────────────
+function initHeaderSession() {
+  if (isStudyHubSignedIn()) return;
+  document.querySelectorAll('.topbar-actions').forEach(actions => {
+    actions.innerHTML = '<a class="header-login-button" href="index.html">Sign in</a>';
+  });
+}
+
 function setActiveNav() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const activePage = document.body.dataset.activeNav || currentPage;
@@ -118,43 +91,43 @@ function debounce(fn, ms = 300) {
 // Sidebar preference is shared by both static and template-rendered pages.
 function initSidebarToggle() {
   const sidebar = document.querySelector('.sidebar');
-  if (!sidebar || sidebar.querySelector('.sidebar-toggle')) return;
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'sidebar-toggle';
-  const navigation = sidebar.querySelector('.sidebar-nav');
-  if (navigation) {
-    navigation.id = navigation.id || 'sidebarNavigation';
-    button.setAttribute('aria-controls', navigation.id);
-  }
-  sidebar.querySelector('.sidebar-logo').insertAdjacentElement('afterend', button);
-  let collapsed = window.matchMedia('(max-width: 768px)').matches;
-  try {
-    const saved = localStorage.getItem('studyhub-sidebar-collapsed');
-    if (saved !== null) collapsed = saved === 'true';
-  } catch { /* The toggle still works when browser storage is unavailable. */ }
+  const header = document.querySelector('.app-shell .topbar');
+  if (!sidebar || !header || document.querySelector('.header-menu-toggle')) return;
+  const shell = document.querySelector('.app-shell');
+  shell.classList.add('has-header-navigation');
+  shell.prepend(header);
+  sidebar.id = 'pageNavigation';
+  sidebar.setAttribute('aria-label', 'Page navigation');
+  sidebar.querySelector('.sidebar-logo')?.remove();
+  const controls = document.createElement('div');
+  controls.className = 'header-navigation';
+  controls.innerHTML = `<button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a>`;
+  header.prepend(controls);
+  const button = controls.querySelector('button');
+  const backdrop = document.createElement('button');
+  backdrop.type = 'button';
+  backdrop.className = 'navigation-backdrop';
+  backdrop.setAttribute('aria-label', 'Close pages menu');
+  backdrop.tabIndex = -1;
+  shell.append(backdrop);
+  let open = false;
   function render() {
-    sidebar.classList.toggle('is-collapsed', collapsed);
-    sidebar.classList.toggle('is-expanded', !collapsed);
-    const label = collapsed ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên';
-    button.setAttribute('aria-label', label);
-    button.setAttribute('aria-expanded', String(!collapsed));
-    button.title = label;
-    button.innerHTML = `<i class="fa-solid ${collapsed ? 'fa-angles-right' : 'fa-angles-left'}" aria-hidden="true"></i><span>Thu gọn</span>`;
-    sidebar.querySelectorAll('.nav-item').forEach(link => {
-      const text = link.querySelector('span');
-      if (text) {
-        link.setAttribute('aria-label', text.textContent.trim());
-        if (collapsed) link.title = text.textContent.trim();
-        else link.removeAttribute('title');
-      }
-    });
+    sidebar.classList.remove('is-collapsed');
+    sidebar.classList.add('is-expanded');
+    sidebar.inert = !open;
+    sidebar.setAttribute('aria-hidden', String(!open));
+    shell.classList.toggle('navigation-open', open);
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? 'Close pages menu' : 'Open pages menu');
+    backdrop.hidden = !open;
   }
-  button.addEventListener('click', () => {
-    collapsed = !collapsed;
-    render();
-    try { localStorage.setItem('studyhub-sidebar-collapsed', String(collapsed)); } catch { /* Keep the session preference. */ }
+  function close() { open = false; render(); button.focus(); }
+  button.addEventListener('click', () => { open = !open; render(); });
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && open) { event.preventDefault(); close(); }
   });
+  sidebar.addEventListener('click', event => { if (event.target.closest('a')) close(); });
   render();
 }
 
@@ -266,10 +239,32 @@ function initLiquidNavigation() {
 
 // ── DOMContentLoaded bootstrap ────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  initHeaderSession();
   setActiveNav();
   initPasswordToggles();
   initSidebarToggle();
   initLiquidNavigation();
-  initThemeToggle();
   initCustomCursor();
 });
+
+// Refresh session-dependent controls when restoring a page from browser history.
+window.addEventListener('pageshow', event => {
+  if (event.persisted) {
+    const hasLogin = Boolean(document.querySelector('.header-login-button'));
+    if (document.querySelector('.topbar-actions') && hasLogin === isStudyHubSignedIn()) location.reload();
+  }
+});
+
+// Returning home from the homepage scrolls its content instead of reloading it.
+document.addEventListener('click', event => {
+  if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  const link = event.target.closest('a[href]');
+  if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+  const destination = new URL(link.href, location.href);
+  if (destination.origin !== location.origin || destination.hash || destination.search || !destination.pathname.endsWith('/dashboard.html') || !location.pathname.endsWith('/dashboard.html')) return;
+  const page = document.querySelector('.landing-body');
+  if (!page) return;
+  event.preventDefault();
+  page.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+}, true);

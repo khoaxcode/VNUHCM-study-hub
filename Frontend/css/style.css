@@ -65,8 +65,8 @@ img { display: block; max-width: 100%; }
 .cursor-ring { width: 34px; height: 34px; border: 1.5px solid #9648df; background: #9148df04; transition: width .2s ease, height .2s ease, border-color .2s ease, background-color .2s ease; }
 .cursor-ring.is-interactive { width: 43px; height: 43px; border-color: #7e39d5; background: #9148df0a; }
 .cursor-ring.is-pressed { width: 27px; height: 27px; }
-html:not([data-theme="dark"]) .cursor-ring { border-color: #00adc9; background: #00cbed04; }
-html:not([data-theme="dark"]) .cursor-ring.is-interactive { border-color: #009bb6; background: #00cbed0a; }
+html .cursor-ring { border-color: #00adc9; background: #00cbed04; }
+html .cursor-ring.is-interactive { border-color: #009bb6; background: #00cbed0a; }
 .cursor-glow { width: 320px; height: 320px; background: radial-gradient(circle closest-side, #04ccef55 0%, #20b8ed46 12%, #4998e933 25%, #6b77e221 40%, #8955de12 55%, #9746dc08 70%, #9746dc02 85%, #9746dc00 100%); }
 @media (hover: hover) and (pointer: fine) {
   html.custom-cursor-active, html.custom-cursor-active * { cursor: none !important; }
@@ -665,3 +665,15 @@ html:not([data-theme="dark"]) .cursor-ring.is-interactive { border-color: #009bb
   .sidebar.is-expanded .sidebar-user .chevron { display: block; }
 }
 
+
+/* Shared editorial footer, with a botanical illustration at the brand corner. */
+.site-footer{display:grid;grid-template-columns:minmax(200px,1fr) minmax(0,1.15fr);min-height:285px;margin:70px 0 0;background:#f2f5f3;border:1px solid #e9eeeb;color:#263c38;position:relative;overflow:hidden;box-shadow:0 12px 30px #17362b08;flex-shrink:0;text-align:left}.footer-brand-area{position:relative;min-height:285px;padding:32px}.footer-brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none}.footer-brand .studyhub-wordmark{font-size:22px;letter-spacing:-.8px}.footer-garden{position:absolute;bottom:-1px;left:0;width:230px;height:210px;pointer-events:none}.footer-content{padding:36px 32px 24px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}.footer-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.footer-columns h3{font-size:12px!important;font-weight:700;margin:0 0 16px;color:#263c38!important}.footer-columns a{display:block;width:fit-content;font-size:11px;line-height:1.7;margin-bottom:9px;color:#65736e;text-decoration:none;transition:color .2s}.footer-columns a:hover{color:#2463eb}.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px}.footer-bottom p{font-size:9px!important;color:#6c7872;margin:0!important;line-height:1.7}.footer-contact{display:inline-flex;align-items:center;gap:6px;color:#277c94;font-size:10px;text-decoration:none;white-space:nowrap}.site-footer a:focus-visible{outline:2px solid #3987ff;outline-offset:4px;border-radius:3px}.landing-body>.site-footer{margin:0;border-width:1px 0 0;box-shadow:none;padding-inline:max(0px,calc((100% - 1250px)/2));min-height:310px}.profile-page>.site-footer{width:100%}@media(max-width:800px){.site-footer{grid-template-columns:1fr;}.footer-brand-area{min-height:185px;padding:26px}.footer-garden{left:auto;right:8px;width:170px;height:160px}.footer-content{padding:20px 26px 26px;gap:30px}.footer-columns{gap:16px}.footer-columns h3{font-size:11px!important}.footer-columns a{font-size:10px}.footer-bottom{flex-wrap:wrap}.landing-body>.site-footer{padding-inline:0}}@media(prefers-reduced-motion:reduce){.footer-columns a{transition:none}}
+
+/* Anchor the botanical artwork to the footer itself. */
+.site-footer .footer-brand-area { position: static; }
+.site-footer .footer-garden { left: 0; right: auto; bottom: -1px; }
+@media(max-width:800px){
+  .site-footer .footer-brand-area { min-height: auto; }
+  .site-footer { padding-bottom: 145px; }
+  .landing-body > .site-footer { padding-bottom: 145px; }
+}
