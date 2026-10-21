@@ -117,3 +117,9 @@
 .header-premium-button:focus-visible { outline:3px solid #dba62e;outline-offset:3px; }
 @media(max-width:600px){.header-premium-button{min-height:36px;padding:0 13px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.header-premium-button{transition:none}.header-premium-button:hover{transform:none}}
+
+
+/* The incoming page itself forms the liquid, with no colored cover. */
+.premium-liquid-curtain { position:fixed;inset:0;z-index:100000;overflow:hidden;visibility:hidden;clip-path:circle(0 at 50% 50%);pointer-events:none; }
+.premium-liquid-curtain iframe { display:block;width:100%;height:100%;border:0;background:#f8faff;pointer-events:none; }
+@media(prefers-reduced-motion:reduce){.premium-liquid-curtain{display:none}}

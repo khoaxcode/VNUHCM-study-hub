@@ -17,6 +17,69 @@ function initHeaderSession() {
   });
 }
 
+// Reveal the actual pricing page inside a center-out liquid mask.
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let navigating = false, preview = null;
+  function prepare(url) {
+    if (preview) return preview;
+    const layer = document.createElement('div');
+    layer.className = 'premium-liquid-curtain';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.inert = true;
+    const iframe = document.createElement('iframe');
+    iframe.title = 'Pricing transition preview';
+    iframe.tabIndex = -1;
+    const ready = new Promise(resolve => {
+      const timeout = setTimeout(() => resolve(false), 5000);
+      iframe.addEventListener('load', async () => {
+        try { await Promise.race([iframe.contentDocument.fonts.ready, new Promise(done => setTimeout(done, 700))]); } catch {}
+        clearTimeout(timeout); resolve(true);
+      }, { once: true });
+    });
+    iframe.src = url.href;
+    layer.append(iframe); document.body.append(layer);
+    preview = { layer, ready };
+    return preview;
+  }
+  document.addEventListener('pointerover', event => {
+    if (reduced.matches || location.pathname.endsWith('/premium.html')) return;
+    const link = event.target instanceof Element ? event.target.closest('.header-premium-button') : null;
+    if (link) prepare(new URL(link.href));
+  }, { passive: true });
+  document.addEventListener('click', async event => {
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target === '_blank' || link.hasAttribute('download')) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || !url.pathname.endsWith('/premium.html') || location.pathname.endsWith('/premium.html') || reduced.matches) return;
+    event.preventDefault(); event.stopImmediatePropagation();
+    if (navigating) return;
+    navigating = true;
+    const { layer, ready } = prepare(url);
+    try {
+      if (await ready && layer.animate) {
+        const radius = Math.hypot(innerWidth, innerHeight) * .6;
+        const stages = [0, .1, .28, .5, .75, 1];
+        const frames = stages.map((progress, index) => {
+          const points = Array.from({ length: 64 }, (_, point) => {
+            const angle = point / 64 * Math.PI * 2;
+            const wave = 1 + Math.sin(angle * 4 + progress * 7) * .085 * (1 - progress);
+            const r = radius * progress * wave;
+            return `${innerWidth / 2 + Math.cos(angle) * r}px ${innerHeight / 2 + Math.sin(angle) * r}px`;
+          });
+          return { clipPath: `polygon(${points.join(',')})`, offset: index / (stages.length - 1) };
+        });
+        layer.style.visibility = 'visible';
+        await layer.animate(frames, { duration: 950, easing: 'cubic-bezier(.25,.1,.25,1)', fill: 'forwards' }).finished;
+      }
+    } catch { /* Failed previews never block navigation. */ }
+    location.assign(url.href);
+  }, true);
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) { preview?.layer.remove(); preview = null; navigating = false; }
+  });
+})();
+
 function initPremiumLink() {
   document.querySelectorAll('.topbar-actions').forEach(actions => {
     if (actions.querySelector('.header-premium-button')) return;
