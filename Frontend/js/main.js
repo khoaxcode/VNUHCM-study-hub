@@ -44,7 +44,7 @@ function initHeaderSession() {
   }
   document.addEventListener('pointerover', event => {
     if (reduced.matches || location.pathname.endsWith('/premium.html')) return;
-    const link = event.target instanceof Element ? event.target.closest('.header-premium-button') : null;
+    const link = event.target instanceof Element ? event.target.closest('.header-premium-button, .quick-ask-premium-link') : null;
     if (link) prepare(new URL(link.href));
   }, { passive: true });
   document.addEventListener('click', async event => {
@@ -53,6 +53,8 @@ function initHeaderSession() {
     const url = new URL(link.href, location.href);
     if (url.origin !== location.origin || !url.pathname.endsWith('/premium.html') || location.pathname.endsWith('/premium.html') || reduced.matches) return;
     event.preventDefault(); event.stopImmediatePropagation();
+    document.querySelector('.qa-premium-cursor')?.classList.remove('is-visible');
+    document.documentElement.classList.remove('premium-cursor-active');
     if (navigating) return;
     navigating = true;
     const { layer, ready } = prepare(url);

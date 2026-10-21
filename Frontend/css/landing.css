@@ -209,3 +209,22 @@
 .hero-spark.hero-spark-travelling { visibility: hidden; }
 .scroll-journey-star { position: absolute; top: 0; left: 0; z-index: 8; display: grid; place-items: center; color: #2463eb; line-height: 1; pointer-events: none; user-select: none; will-change: transform; }
 .scroll-journey-star[hidden] { display: none; }
+
+/* The Quick Ask preview doubles as an accessible Premium invitation. */
+.quick-ask-premium-link { position:absolute;inset:0;z-index:6;border-radius:22px;text-decoration:none; }
+.quick-ask-premium-link:focus-visible { outline:3px solid #b78b2e;outline-offset:-4px; }
+.qa-premium-link-label { position:absolute;right:18px;bottom:18px;padding:8px 13px;border-radius:22px;background:#ffe8a2;color:#76500f;font-size:11px;font-weight:700;opacity:0; }
+.quick-ask-premium-link:focus-visible .qa-premium-link-label { opacity:1; }
+.qa-premium-cursor { position:fixed;z-index:2147483647;pointer-events:none;padding:12px 20px;border:1px solid #e7be61;border-radius:28px;background:linear-gradient(120deg,#fff0ba,#efc562);color:#76500f;box-shadow:0 6px 20px #825a2030;font:700 13px/1.2 Inter,sans-serif;white-space:nowrap;opacity:0;transform:scale(.35);transform-origin:top left;transition:opacity .4s ease,transform .55s cubic-bezier(.22,1,.36,1); }
+.qa-premium-cursor.is-visible { opacity:1;transform:scale(1); }
+html.premium-cursor-active .custom-cursor { opacity:0!important; }
+html.premium-cursor-active .quick-ask-premium-link { cursor:none; }
+@media(hover:none){.qa-premium-link-label{opacity:1}}
+@media(prefers-reduced-motion:reduce){.qa-premium-cursor{transition:none}}
+
+/* Keep the entire preview hit area above its animated contents. */
+.guide-picture.quick-ask-demo { position:relative; }
+.guide-picture.quick-ask-demo > .quick-ask-premium-link { display:block;position:absolute;inset:0;z-index:9;pointer-events:auto; }
+.guide-picture.quick-ask-demo > .qa-play { z-index:10; }
+html.premium-cursor-active,html.premium-cursor-active * { cursor:none!important; }
+body > .qa-premium-cursor.is-visible { visibility:visible;z-index:2147483647; }

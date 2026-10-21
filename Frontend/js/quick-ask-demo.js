@@ -17,6 +17,38 @@
     <svg class="qa-cursor" viewBox="0 0 28 32" fill="none"><path d="M4 3v23l6-6 5 9 5-3-5-9 9-1L4 3Z" fill="#243558" stroke="white" stroke-width="2.5" stroke-linejoin="round"/></svg><span class="qa-click"></span>
     <div class="qa-caption"><span class="qa-caption-text">Mở tài liệu</span><span class="qa-progress-dots"><i></i><i></i><i></i><i></i></span></div>
   </div><button class="qa-play" type="button" aria-label="Pause Quick Ask preview" aria-pressed="false">Ⅱ</button><span class="sr-only">Minh họa tính năng sắp ra mắt: mở tài liệu Cấu trúc dữ liệu và giải thuật, cuộn đến Bubble Sort, chọn mã và dùng Quick Ask để xem giải thích.</span>`;
+  const premiumLink = document.createElement('a');
+  premiumLink.className = 'quick-ask-premium-link';
+  premiumLink.href = 'premium.html';
+  premiumLink.setAttribute('aria-label', 'Khám phá StudyHub Premium và Quick Ask');
+  premiumLink.innerHTML = '<span class="qa-premium-link-label">Premium &rarr;</span>';
+  host.append(premiumLink);
+  const premiumCursor = document.createElement('span');
+  premiumCursor.className = 'qa-premium-cursor';
+  premiumCursor.textContent = 'Premium →';
+  premiumCursor.setAttribute('aria-hidden', 'true');
+  document.body.append(premiumCursor);
+  function clearPremiumCursor() {
+    premiumCursor.classList.remove('is-visible');
+    document.documentElement.classList.remove('premium-cursor-active');
+  }
+  function showPremiumCursor(event) {
+    if (event.pointerType === 'touch') return;
+    if (event.target.closest('.qa-play')) { clearPremiumCursor(); return; }
+    premiumCursor.style.left = `${Math.max(8, Math.min(innerWidth - 138, event.clientX + 12))}px`;
+    premiumCursor.style.top = `${Math.max(8, Math.min(innerHeight - 52, event.clientY + 12))}px`;
+    premiumCursor.classList.add('is-visible');
+    document.documentElement.classList.add('premium-cursor-active');
+  }
+  host.addEventListener('pointerenter', showPremiumCursor);
+  host.addEventListener('pointermove', showPremiumCursor, true);
+  host.addEventListener('pointerleave', clearPremiumCursor);
+  premiumLink.addEventListener('click', clearPremiumCursor);
+  // Navigation is handled in capture phase, before the link's own click handler.
+  document.addEventListener('click', clearPremiumCursor, true);
+  window.addEventListener('blur', clearPremiumCursor);
+  window.addEventListener('pageshow', clearPremiumCursor);
+  document.addEventListener('visibilitychange', clearPremiumCursor);
   const film = host.querySelector('.qa-film'), cursor = host.querySelector('.qa-cursor');
   cursor.insertAdjacentHTML('beforeend', '<g class="qa-text-cursor" stroke="#243558" stroke-width="2" stroke-linecap="round"><path d="M4 3v18M0 3h8M0 21h8" stroke="white" stroke-width="4"/><path d="M4 3v18M0 3h8M0 21h8"/></g>');
   const caption = host.querySelector('.qa-caption-text'), answer = host.querySelector('.qa-answer-text');
