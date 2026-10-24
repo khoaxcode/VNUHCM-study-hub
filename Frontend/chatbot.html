@@ -17,15 +17,27 @@
   <link rel="stylesheet" href="css/profile.css" />
   <script src="js/profile.js" defer></script>
   <link rel="stylesheet" href="css/theme.css" />
-<link rel="stylesheet" href="css/brand.css">
+<link rel="stylesheet" href="css/brand.css?v=clean-flame-2">
 <meta name="color-scheme" content="light">
 </head>
 <body>
 
-<div class="app-shell">
+<div class="app-shell has-header-navigation">
+<header class="topbar"><div class="header-navigation"><button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a></div>
+      <div>
+        <h2 style="font-size:18px;font-weight:700;">AI Chatbot</h2>
+        <p style="font-size:12px;color:var(--gray-400);margin-top:1px;">Đọc tài liệu, hỏi đáp và tạo file ôn thi cá nhân hóa</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-icon-btn" title="Làm mới" id="resetChat">
+          <i class="fa-solid fa-rotate"></i>
+        </button>
+        <div class="avatar-btn">NA</div>
+      </div>
+    </header>
 
   <!-- ═══ Sidebar ═════════════════════════════════════════════════ -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="pageNavigation" aria-label="Page navigation" aria-hidden="true" inert>
     <div class="sidebar-logo">
       <div class="logo-icon"><svg class="brand-book" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 7c4-1.5 8-.8 12 1.5V26c-4-2.3-8-3-12-1.5V7Z" fill="white"/><path d="M28 7c-4-1.5-8-.8-12 1.5V26c4-2.3 8-3 12-1.5V7Z" fill="white"/><path d="M16 9v16" stroke="#c0d5ff" stroke-width="1"/><g class="brand-writing" stroke="#3977ee" stroke-width="1.15" stroke-linecap="round"><path class="book-line line-1" pathLength="1" d="m7 11 6 1"/><path class="book-line line-2" pathLength="1" d="m7 15 6 1"/><path class="book-line line-3" pathLength="1" d="m7 19 4 .7"/><path class="book-line line-4" pathLength="1" d="m19 12 6-1"/><path class="book-line line-5" pathLength="1" d="m19 16 6-1"/><path class="book-line line-6" pathLength="1" d="m19 20 4-.7"/></g></svg></div>
       <div class="logo-text">
@@ -60,18 +72,7 @@
   <div class="main-content">
 
     <!-- Topbar -->
-    <header class="topbar">
-      <div>
-        <h2 style="font-size:18px;font-weight:700;">AI Chatbot</h2>
-        <p style="font-size:12px;color:var(--gray-400);margin-top:1px;">Đọc tài liệu, hỏi đáp và tạo file ôn thi cá nhân hóa</p>
-      </div>
-      <div class="topbar-actions">
-        <button class="topbar-icon-btn" title="Làm mới" id="resetChat">
-          <i class="fa-solid fa-rotate"></i>
-        </button>
-        <div class="avatar-btn">NA</div>
-      </div>
-    </header>
+
 
     <main class="chatbot-workspace">
       <section class="subject-panel" aria-labelledby="subjectsHeading">
@@ -98,7 +99,7 @@
   </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js"></script><script src="js/streak.js?v=clean-flame-2"></script>
 <script src="js/dev-banner.js"></script>
 <script src="js/chatbot.js"></script>
 </body>

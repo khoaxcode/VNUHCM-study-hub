@@ -714,3 +714,11 @@ html .cursor-ring.is-interactive { border-color: #009bb6; background: #00cbed0a;
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
   .footer-glass-stage > .site-footer { background: rgba(255,255,255,.35); }
 }
+
+/* Document and study-path rating summary. */
+.item-rating { display:inline-flex;align-items:center;gap:8px;max-width:100%;margin:9px 0 4px;vertical-align:middle;white-space:nowrap;line-height:1.4; }
+.item-rating-stars { display:inline-flex;align-items:center;gap:3px;color:#eeb53a;font-size:12px;filter:drop-shadow(0 1px 0 #b77c1512); }
+.item-rating-count { color:#8593a9;font-size:11px;font-weight:500; }
+.saved-plan-content > .item-rating { margin:9px 0 10px; }
+.course-document .item-rating { margin-top:9px; }
+@media(max-width:600px){.item-rating-stars{font-size:11px}.item-rating{gap:6px}}

@@ -146,6 +146,7 @@
     if (input.dataset.complete !== undefined) sprints[index].checked.fill(input.checked);
     else if (input.dataset.sprint !== undefined) sprints[index].checked[Number(input.dataset.task)] = input.checked;
     else return;
+    if (input.checked) window.StudyHubStreak?.recordStudy();
     renderPlan();
     const row = $('sprintList').querySelector(`[data-sprint-index="${index}"]`);
     const replacement = input.dataset.complete !== undefined ? row?.querySelector('[data-complete]') : row?.querySelector(`[data-task="${input.dataset.task}"]`);

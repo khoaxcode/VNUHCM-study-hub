@@ -17,14 +17,15 @@
   <link rel="stylesheet" href="css/profile.css" />
   <script src="js/profile.js" defer></script>
   <link rel="stylesheet" href="css/theme.css" />
-<link rel="stylesheet" href="css/brand.css">
+<link rel="stylesheet" href="css/brand.css?v=clean-flame-2">
 <meta name="color-scheme" content="light">
 </head>
 <body data-active-nav="space.html">
-  <div class="app-shell">
-    <aside class="sidebar" data-app-sidebar></aside>
+  <div class="app-shell has-header-navigation">
+<header class="topbar space-topbar"><div class="header-navigation"><button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a></div><div><h1>Space cá nhân</h1><p>Quản lý và chia sẻ lộ trình học, tài liệu đã lưu và các nội dung của bạn</p></div><div class="topbar-actions" data-app-actions></div></header>
+    <aside class="sidebar" data-app-sidebar id="pageNavigation" aria-label="Page navigation" aria-hidden="true" inert></aside>
     <div class="main-content">
-      <header class="topbar space-topbar"><div><h1>Space cá nhân</h1><p>Quản lý và chia sẻ lộ trình học, tài liệu đã lưu và các nội dung của bạn</p></div><div class="topbar-actions" data-app-actions></div></header>
+
       <main class="page-body space-body">
         <div class="space-toolbar"><div class="active-section"><i class="fa-regular fa-calendar-check"></i> Lộ trình học</div><form id="receiveForm" class="receive-form"><label class="share-input"><i class="fa-solid fa-link"></i><input id="shareCode" aria-label="Mã chia sẻ lộ trình" placeholder="Nhập mã chia sẻ lộ trình..." maxlength="10000" required /></label><button type="submit" class="outline-button">Nhận lộ trình</button></form><a class="new-plan" href="planner.html"><i class="fa-solid fa-plus"></i> Tạo lộ trình mới</a></div>
         <div class="space-filters"><label class="plan-search"><i class="fa-solid fa-magnifying-glass"></i><input id="planSearch" type="search" placeholder="Tìm lộ trình học..." aria-label="Tìm lộ trình học" /></label><label class="school-filter"><span class="sr-only">Trường</span><select id="schoolFilter"><option value="all">Tất cả trường</option><option value="UIT">UIT</option><option value="BKU">BKU</option></select></label><label class="sort-filter"><span>Sắp xếp</span><select id="planSort"><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option><option value="name">Tên A – Z</option></select></label></div>
@@ -35,7 +36,7 @@
     </div>
   </div>
   <dialog id="planDialog" class="space-dialog"><div class="dialog-heading"><h2 id="dialogHeading"></h2><button id="closeDialog" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div><div id="dialogContent"></div></dialog>
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script><script src="js/streak.js?v=clean-flame-2"></script>
   <script src="js/templates.js"></script>
   <script src="js/app-shell.js"></script>
   <script src="js/dev-banner.js"></script>

@@ -169,17 +169,21 @@ function debounce(fn, ms = 300) {
 function initSidebarToggle() {
   const sidebar = document.querySelector('.sidebar');
   const header = document.querySelector('.app-shell .topbar');
-  if (!sidebar || !header || document.querySelector('.header-menu-toggle')) return;
+  if (!sidebar || !header || header.dataset.menuInitialized) return;
+  header.dataset.menuInitialized = 'true';
   const shell = document.querySelector('.app-shell');
   shell.classList.add('has-header-navigation');
-  shell.prepend(header);
+  if (header.parentElement !== shell) shell.prepend(header);
   sidebar.id = 'pageNavigation';
   sidebar.setAttribute('aria-label', 'Page navigation');
   sidebar.querySelector('.sidebar-logo')?.remove();
-  const controls = document.createElement('div');
-  controls.className = 'header-navigation';
-  controls.innerHTML = `<button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a>`;
-  header.prepend(controls);
+  let controls = header.querySelector('.header-navigation');
+  if (!controls) {
+    controls = document.createElement('div');
+    controls.className = 'header-navigation';
+    controls.innerHTML = `<button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a>`;
+    header.prepend(controls);
+  }
   const button = controls.querySelector('button');
   const backdrop = document.createElement('button');
   backdrop.type = 'button';
@@ -337,7 +341,7 @@ window.addEventListener('pageshow', event => {
 document.addEventListener('click', event => {
   if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
   const link = event.target.closest('a[href]');
-  if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+  if (!link || link.closest('.site-footer') || link.target === '_blank' || link.hasAttribute('download')) return;
   const destination = new URL(link.href, location.href);
   if (destination.origin !== location.origin || destination.hash || destination.search || !destination.pathname.endsWith('/dashboard.html') || !location.pathname.endsWith('/dashboard.html')) return;
   const page = document.querySelector('.landing-body');

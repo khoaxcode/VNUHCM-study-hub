@@ -80,3 +80,9 @@
 @media (max-width: 1300px) { .space-toolbar { flex-wrap: wrap; } .active-section { margin-right: auto; } .receive-form { margin-left: 0; } .share-input { width: 245px; } .space-filters { grid-template-columns: 1fr 180px 220px; gap: 12px; } .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 850px) { .space-toolbar { gap: 12px; } .receive-form { width: 100%; order: 3; } .share-input { flex: 1; min-width: 0; } .space-filters { grid-template-columns: 1fr 1fr; } .plan-search { grid-column: 1 / -1; } .sort-filter > span { margin: 0 0 4px; } .space-topbar h1 { font-size: 22px; } .space-topbar p { font-size: 11px; } .space-body { padding: 18px 16px 70px; } .plan-grid { gap: 12px; } .plan-card-actions { gap: 5px; } .plan-card-actions button { font-size: 11px; gap: 5px; } }
 @media (max-width: 600px) { .plan-grid { grid-template-columns: 1fr; } .space-topbar { padding: 0 14px; height: 84px; } .space-topbar h1 { font-size: 20px; } .space-topbar p { max-width: 230px; line-height: 1.5; } .space-topbar .topbar-actions { gap: 6px; } .space-topbar .avatar-btn { display: none; } .new-plan { padding: 12px; font-size: 12px; } .outline-button { padding: 13px 10px; font-size: 12px; } .share-input { padding: 13px 10px; gap: 8px; } .share-input input { font-size: 11px; } .space-filters { gap: 10px; } .school-filter select, .sort-filter select { padding: 12px 8px; font-size: 12px; } }
+
+.space-body #shareCode:focus, .space-body #shareCode:focus-visible { outline: none; box-shadow: none; }
+
+.share-input:focus-within { border-color: #8bb6fa; }
+
+.space-body #planSearch:focus, .space-body #planSearch:focus-visible { outline: none; box-shadow: none; }

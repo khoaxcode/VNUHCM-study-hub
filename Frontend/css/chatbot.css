@@ -160,3 +160,14 @@
 @media(prefers-reduced-motion:reduce){#toggleSelectedSubjects i{transition:none}}
 
 .quiz-panel[hidden] { display: none; }
+
+/* Give the conversation most of the workspace and balance both side panels. */
+@media (min-width: 1201px) {
+  .chatbot-workspace { grid-template-columns: clamp(250px, 19vw, 330px) minmax(0, 1fr) clamp(250px, 19vw, 330px); }
+  .conversation-panel { min-width: 0; }
+  .learning-panel .study-actions { grid-template-columns: 1fr; }
+}
+.conversation-panel .conversation-scroll { width:100%; max-width:1100px; margin-inline:auto; }
+.conversation-panel .composer-wrap { width:calc(100% - 24px); max-width:1064px; margin:12px auto; }
+
+.chatbot-workspace #chatInput:focus, .chatbot-workspace #chatInput:focus-visible { outline: none; box-shadow: none; }

@@ -123,3 +123,21 @@
 .premium-liquid-curtain { position:fixed;inset:0;z-index:100000;overflow:hidden;visibility:hidden;clip-path:circle(0 at 50% 50%);pointer-events:none; }
 .premium-liquid-curtain iframe { display:block;width:100%;height:100%;border:0;background:#f8faff;pointer-events:none; }
 @media(prefers-reduced-motion:reduce){.premium-liquid-curtain{display:none}}
+
+/* Hide obsolete sidebar branding before template initialization. */
+.has-header-navigation > .sidebar .sidebar-logo { display:none; }
+
+/* Animated daily study streak. */
+.streak-widget{position:relative;flex-shrink:0}.streak-button{display:flex;align-items:center;gap:5px;padding:3px 9px;border:1px solid #ffe2bc;border-radius:24px;background:#fff7ed;color:#ce651d;cursor:pointer;min-height:42px;font:700 15px Inter,sans-serif}.streak-fire{width:27px;height:33px;overflow:visible}.flame-outer{transform-origin:50% 95%;animation:study-flame 1.8s ease-in-out infinite alternate}.flame-inner{transform-origin:50% 100%;animation:study-flame-core 1.25s ease-in-out infinite alternate}.streak-earned .streak-button{background:#fff0db;border-color:#ffce92}.streak-button:focus-visible{outline:3px solid #ffbf73;outline-offset:3px}.streak-popover{position:absolute;right:0;top:calc(100% + 12px);width:min(270px,calc(100vw - 24px));padding:20px;border:1px solid #ffe0b4;border-radius:18px;background:#fffaf3;box-shadow:0 12px 35px #6b431b1c;color:#573a26;opacity:0;visibility:hidden;transform:translateY(6px) scale(.97);transform-origin:top right;transition:opacity .2s,transform .2s,visibility .2s;z-index:100;pointer-events:none}.streak-widget:is(:hover,:focus-within,.streak-open) .streak-popover{opacity:1;visibility:visible;transform:translateY(0) scale(1)}.streak-eyebrow{display:block;font-size:8px;letter-spacing:1.4px;font-weight:700;color:#cb843e;margin-bottom:12px}.streak-days{font-size:22px;letter-spacing:-.6px;display:block}.streak-popover p{font-size:12px;line-height:1.8;color:#a07857;margin:12px 0}.streak-popover small{font-size:9px;line-height:1.8;color:#b39b86}.streak-celebrate .streak-fire{animation:study-fire-pop .65s cubic-bezier(.22,1,.36,1)}@keyframes study-flame{from{transform:rotate(-3deg) scale(1,.96)}to{transform:rotate(3deg) scale(.96,1.05)}}@keyframes study-flame-core{from{transform:scale(.85,.9);opacity:.8}to{transform:scale(1.05,1.08);opacity:1}}@keyframes study-fire-pop{0%,100%{transform:scale(1)}45%{transform:scale(1.3) rotate(-7deg)}70%{transform:scale(.95) rotate(4deg)}}@media(prefers-reduced-motion:reduce){.flame-outer,.flame-inner,.streak-celebrate .streak-fire{animation:none}.streak-popover{transition:none}}
+
+/* Compact flame: stable silhouette, gentle flicker, one quiet rising spark. */
+.streak-fire { width:29px;height:35px;overflow:visible; }
+.streak-flame-body { transform-origin:24px 51px;animation:streak-soft-flame 2.2s ease-in-out infinite; }
+.streak-flame-heart { transform-origin:24px 50px;animation:streak-soft-heart 1.6s ease-in-out infinite; }
+.streak-flame-light { opacity:.95; }
+.streak-spark { transform-origin:32px 8px;opacity:0;animation:streak-soft-spark 3.8s ease-out infinite; }
+@keyframes streak-soft-flame { 0%,100%{transform:scale(1,1) rotate(0)}25%{transform:scale(.98,1.035) rotate(-1.5deg)}55%{transform:scale(1.025,.98) rotate(1deg)}78%{transform:scale(.99,1.02) rotate(-.5deg)} }
+@keyframes streak-soft-heart { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.92,1.04);opacity:.9} }
+@keyframes streak-soft-spark { 0%,65%,100%{opacity:0;transform:translate(0,3px) scale(.5)}72%{opacity:.8;transform:translate(0,0) scale(.8)}88%{opacity:0;transform:translate(2px,-6px) scale(.3)} }
+.streak-motion-paused :is(.streak-flame-body,.streak-flame-heart,.streak-spark){animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.streak-flame-body,.streak-flame-heart,.streak-spark{animation:none}.streak-spark{display:none}}

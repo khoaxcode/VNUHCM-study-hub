@@ -17,15 +17,27 @@
   <link rel="stylesheet" href="css/profile.css" />
   <script src="js/profile.js" defer></script>
   <link rel="stylesheet" href="css/theme.css" />
-<link rel="stylesheet" href="css/brand.css">
+<link rel="stylesheet" href="css/brand.css?v=clean-flame-2">
 <meta name="color-scheme" content="light">
 </head>
 <body>
 
-<div class="app-shell">
+<div class="app-shell has-header-navigation">
+<header class="topbar"><div class="header-navigation"><button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a></div>
+      <div>
+        <h2 style="font-size:18px;font-weight:700;">AI Planner</h2>
+        <p style="font-size:12px;color:var(--gray-400);margin-top:1px;">Lên lộ trình ôn thi thông minh với AI</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-icon-btn" title="Thông báo">
+          <i class="fa-regular fa-bell"></i>
+        </button>
+        <div class="avatar-btn">NA</div>
+      </div>
+    </header>
 
   <!-- ═══ Sidebar ═════════════════════════════════════════════════ -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="pageNavigation" aria-label="Page navigation" aria-hidden="true" inert>
     <div class="sidebar-logo">
       <div class="logo-icon"><svg class="brand-book" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 7c4-1.5 8-.8 12 1.5V26c-4-2.3-8-3-12-1.5V7Z" fill="white"/><path d="M28 7c-4-1.5-8-.8-12 1.5V26c4-2.3 8-3 12-1.5V7Z" fill="white"/><path d="M16 9v16" stroke="#c0d5ff" stroke-width="1"/><g class="brand-writing" stroke="#3977ee" stroke-width="1.15" stroke-linecap="round"><path class="book-line line-1" pathLength="1" d="m7 11 6 1"/><path class="book-line line-2" pathLength="1" d="m7 15 6 1"/><path class="book-line line-3" pathLength="1" d="m7 19 4 .7"/><path class="book-line line-4" pathLength="1" d="m19 12 6-1"/><path class="book-line line-5" pathLength="1" d="m19 16 6-1"/><path class="book-line line-6" pathLength="1" d="m19 20 4-.7"/></g></svg></div>
       <div class="logo-text">
@@ -60,18 +72,7 @@
   <div class="main-content">
 
     <!-- Topbar -->
-    <header class="topbar">
-      <div>
-        <h2 style="font-size:18px;font-weight:700;">AI Planner</h2>
-        <p style="font-size:12px;color:var(--gray-400);margin-top:1px;">Lên lộ trình ôn thi thông minh với AI</p>
-      </div>
-      <div class="topbar-actions">
-        <button class="topbar-icon-btn" title="Thông báo">
-          <i class="fa-regular fa-bell"></i>
-        </button>
-        <div class="avatar-btn">NA</div>
-      </div>
-    </header>
+
 
     <main class="page-body planner-page">
       <section class="planner-setup" aria-label="Thiết lập kế hoạch ôn tập">
@@ -104,7 +105,7 @@
   </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js"></script><script src="js/streak.js?v=clean-flame-2"></script>
 <script src="js/dev-banner.js"></script>
 <dialog id="libraryPicker" class="library-picker"><div class="picker-heading"><h3>Thêm môn học từ Kho tài liệu</h3><button id="closeLibraryPicker" type="button" aria-label="Đóng">×</button></div><p>Chọn môn học. Tất cả tài liệu đã lưu của môn học sẽ được thêm vào AI Planner.</p><input id="pickerSearch" type="search" placeholder="Tìm môn học..." aria-label="Tìm môn học trong kho" /><form id="importDocumentsForm"><div id="pickerDocuments"></div><p id="pickerEmpty" hidden>Không tìm thấy môn học. <a href="library.html">Mở Kho tài liệu</a></p><div class="picker-actions"><button id="importDocuments" type="submit">Thêm môn học đã chọn</button></div></form></dialog>
 <script src="js/data/catalog.js"></script>

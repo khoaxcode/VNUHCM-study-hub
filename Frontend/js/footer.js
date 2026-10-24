@@ -21,4 +21,40 @@
     container.before(scrollArea);
     scrollArea.append(container, glassStage);
   }
+
+  let scrollFrame = null;
+  function cancelFooterScroll() {
+    if (scrollFrame !== null) cancelAnimationFrame(scrollFrame);
+    scrollFrame = null;
+  }
+  container.addEventListener('wheel', cancelFooterScroll, { passive: true });
+  container.addEventListener('touchstart', cancelFooterScroll, { passive: true });
+  document.addEventListener('pointerdown', cancelFooterScroll, { passive: true });
+  document.addEventListener('keydown', cancelFooterScroll);
+  footer.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || (url.hash && url.hash !== '#aboutTitle')) return;
+    event.preventDefault();
+    cancelFooterScroll();
+    const start = container.scrollTop;
+    const section = container.querySelector('.about-section');
+    const destination = url.hash && section ? section.getBoundingClientRect().top - container.getBoundingClientRect().top + start : 0;
+    const target = Math.max(0, Math.min(destination, container.scrollHeight - container.clientHeight));
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      container.scrollTo({ top: target, behavior: 'instant' });
+    } else {
+      const duration = Math.min(2800, Math.max(1600, Math.abs(target - start) * .5));
+      const began = performance.now();
+      function step(now) {
+        const progress = Math.min(1, (now - began) / duration);
+        const ease = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2;
+        container.scrollTo({ top: start + (target - start) * ease, behavior: 'instant' });
+        scrollFrame = progress < 1 ? requestAnimationFrame(step) : null;
+      }
+      scrollFrame = requestAnimationFrame(step);
+    }
+    history.replaceState(null, '', url.pathname + url.search + url.hash);
+  });
 })();

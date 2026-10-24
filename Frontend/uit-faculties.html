@@ -17,26 +17,27 @@
   <link rel="stylesheet" href="css/profile.css" />
   <script src="js/profile.js" defer></script>
   <link rel="stylesheet" href="css/theme.css" />
-<link rel="stylesheet" href="css/brand.css">
+<link rel="stylesheet" href="css/brand.css?v=clean-flame-2">
 <meta name="color-scheme" content="light">
 </head>
 <body data-active-nav="dashboard.html" class="library-page">
-  <div class="app-shell">
-    <aside class="sidebar" data-app-sidebar></aside>
-
-    <div class="main-content">
-      <header class="topbar">
+  <div class="app-shell has-header-navigation">
+<header class="topbar"><div class="header-navigation"><button class="header-menu-toggle" type="button" aria-label="Open pages menu" aria-expanded="false" aria-controls="pageNavigation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="menu-line menu-line-top" d="M4 6h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 18h16"/></g></svg></button><a class="header-brand" href="dashboard.html" aria-label="StudyHub home"><img class="studyhub-mark" src="assets/studyhub-mark.svg" width="42" height="42" alt=""><span class="studyhub-wordmark">Study<span class="studyhub-hub">Hub</span></span></a><a class="university-button" href="universities.html">University</a></div>
         <label class="topbar-search">
           <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
           <input id="facultySearch" type="search" aria-label="Tìm khoa" placeholder="Tìm kiếm tài liệu, môn học, ngành, khoa..." />
         </label>
         <div class="topbar-actions" data-app-actions></div>
       </header>
+    <aside class="sidebar" data-app-sidebar id="pageNavigation" aria-label="Page navigation" aria-hidden="true" inert></aside>
+
+    <div class="main-content">
+
 
       <main class="page-body library-body" data-catalog-page="faculties"></main>
     </div>
   </div>
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script><script src="js/streak.js?v=clean-flame-2"></script>
 <script src="js/templates.js"></script>
 <script src="js/app-shell.js"></script>
 <script src="js/data/catalog.js"></script>

@@ -44,7 +44,7 @@ function renderDocuments() {
           ${item.image ? `<img class="document-cover" src="${item.image}" alt="" loading="lazy" />` : ''}
           <span class="document-type ${item.type}">${item.type.toUpperCase()}</span>
         </div>
-        <div class="document-details"><h2>${item.title}</h2><span class="school-tag">${item.school}</span><span class="document-size">${item.size}</span></div>
+        <div class="document-details"><h2>${item.title}</h2>${StudyHub.rating(item.ratingCount)}<span class="school-tag">${item.school}</span><span class="document-size">${item.size}</span></div>
       </a>
       ${libraryState.pinned.includes(item.id) ? '<span class="document-pin" title="Đã ghim"><i class="fa-solid fa-thumbtack" aria-hidden="true"></i><span>Đã ghim</span></span>' : ''}
       <button class="document-menu" type="button" aria-label="Tùy chọn ${item.title}" aria-expanded="false" aria-controls="options-${item.id}" title="Tùy chọn tài liệu"><i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i></button>

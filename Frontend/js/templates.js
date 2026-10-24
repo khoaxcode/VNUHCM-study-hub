@@ -33,5 +33,9 @@ window.StudyHub = (() => {
     { label: 'UIT', href: 'uit-faculties.html' }, { label: 'Khoa', href: 'uit-faculties.html' },
     { label: 'Ngành', href: 'uit-is-majors.html' }, { label: 'Môn', href: 'uit-is-cttt-subjects.html' }
   ];
-  return { escape, icon, normalize, date, breadcrumbs, folderCard, schoolCard, subjectCard, path };
+  const rating = (count = 0) => {
+    const total = Number.isSafeInteger(count) && count >= 0 ? count : 0;
+    return `<span class="item-rating" role="img" aria-label="${total} người đánh giá${total === 0 ? ', chưa có đánh giá' : ''}" title="${total === 0 ? 'Chưa có đánh giá' : `${total} người đánh giá`}"><span class="item-rating-stars" aria-hidden="true">${Array.from({ length: 5 }, () => '<i class="fa-solid fa-star"></i>').join('')}</span><span class="item-rating-count" aria-hidden="true">(${total.toLocaleString('vi-VN')})</span></span>`;
+  };
+  return { escape, icon, normalize, date, breadcrumbs, folderCard, schoolCard, subjectCard, path, rating };
 })();
